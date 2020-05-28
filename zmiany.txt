@@ -1,0 +1,36 @@
+========================================= 0.2 =========================================
+
+- Mo¿liwoœæ dadawania w³asnych baz zadañ.
+- Narzêdzie do diagnozowania baz zadañ.
+- Zmiana menu programu.
+- 2 tryby testowania odpowiedzi.
+
+========================================= 0.3 =========================================
+
+- Poprawiona diagnostyka baz zadañ, sprawdzaj¹ca dodatkowe parametry.
+- Mo¿liwoœæ wyœwietlenia wyników z ostatniej diagnostyki.
+- Czytanie autora i wersji testu z bazy zadañ.
+- Szybsze losowanie zadañ.
+- Zmiana wygl¹du komunikatu o b³êdzie.
+- Zmiana menu programu.
+
+========================================= 0.4 =========================================
+
+- Ikona testu.
+- Naprawienie b³êdów.
+
+========================================= 0.5 =========================================
+
+- Tryby testowania odpowiedzi w zadaniach dodatkowych.
+- Przeliczanie punktów na procenty.
+- Zmiana menu programu.
+- Ranking wyników.
+
+========================================= 0.6 =========================================
+
+- Naprawienie b³êdów diagnostyki.
+- Poprawienie literówek.
+- Przyspieszenie diagnostyki.
+- Szybki wybór opcji w menu.
+- Zmiana wygl¹du komunikatu o b³êdzie.
+- Przeniesienie trybów testowania z menu do zadañ.
