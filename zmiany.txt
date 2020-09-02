@@ -34,3 +34,9 @@
 - Szybki wybór opcji w menu.
 - Zmiana wygl¹du komunikatu o b³êdzie.
 - Przeniesienie trybów testowania z menu do zadañ.
+
+========================================= 0.7 =========================================
+
+- Dodanie dodatkowego trybu - jednego zadania.
+- Zmiana domyœlnej wielkoœci okna.
+- Przyspieszenie reakcji na klawisze.

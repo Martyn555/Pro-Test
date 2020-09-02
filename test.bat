@@ -1,5 +1,7 @@
 @chcp 1250
 @echo off
+mode con cols=180 lines=60
+mode con rate=32 delay=0
 color f0
 set pytania=0
 set punkty=0
@@ -8,7 +10,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=0.6
+set version=0.7
 set testmode=0
 set /p op=<baza.f1n4l
 set /p normal=<resources\%op%\normal.txt
@@ -59,21 +61,23 @@ call :text f1 "Informatyczny test Martyn's Studio - Menu"
 echo.
 echo.
 echo 1 - Rozpocznij test
-echo 2 - Wyniki
-echo 3 - Ustawienia baz zadañ
-echo 4 - WyjdŸ
+echo 2 - Jedno losowe pytanie
+echo 3 - Wyniki
+echo 4 - Ustawienia baz zadañ
+echo 5 - WyjdŸ
 echo.
-echo 5 - Informacje
-echo 6 - Licencja
-echo 7 - Lista zmian
-choice /n /c:1234567 /M ":"
+echo 6 - Informacje
+echo 7 - Licencja
+echo 8 - Lista zmian
+choice /n /c:12345678 /M ":"
 if %errorlevel%== 1 goto rules
-if %errorlevel%== 2 goto wyniki1
-if %errorlevel%== 3 goto bza
-if %errorlevel%== 4 goto wyjscie
-if %errorlevel%== 5 goto info
-if %errorlevel%== 6 goto license
-if %errorlevel%== 7 goto listazmian
+if %errorlevel%== 2 goto rulesxx
+if %errorlevel%== 3 goto wyniki1
+if %errorlevel%== 4 goto bza
+if %errorlevel%== 5 goto wyjscie
+if %errorlevel%== 6 goto info
+if %errorlevel%== 7 goto license
+if %errorlevel%== 8 goto listazmian
 goto menu
 
 :listazmian
@@ -644,3 +648,76 @@ if exist resources\%op%\rank\*_%r1%.txt type resources\%op%\rank\*_%r1%.txt
 if %r1%== 43 pause>nul
 if %r1%== 43 goto wyniki1
 goto r2
+
+
+
+
+
+:rulesxx
+cls
+call :text f5 "Witaj, %username%."
+echo.
+echo.
+echo Oto zasady testu:
+echo Po wciœniêciu dowolnego klawisza zostanie ci zadane jedno pytanie z dziedziny informatyki.
+echo Test jest na zasadzie wyboru a, b, c, d.
+echo Odpowiedzi podajemy klikaj¹c klawisz odpowiadaj¹cy odpowiedzi.
+echo Niskiej tonacji dŸwiêk informuje o b³êdnej odpowiedzi, a wysokiej tonacji o poprawnej.
+pause>nul
+del resources\%op%\d*.f1n4l
+del resources\%op%\z*.f1n4l
+set czasrozpoczecia=%time%
+goto randomjjj
+
+
+
+
+:randomjjj
+cls
+call :text f4 "Trwa losowanie zadania"
+if %pytania%==40 goto ennd
+set /a x=%RANDOM% * %normal% / 32768 + 1
+if not exist resources\%op%\d%x%.f1n4l set err=0
+if not exist resources\%op%\a%x%.f1n4l goto error
+if not exist resources\%op%\b%x%.txt goto error
+if exist resources\%op%\d%x%.f1n4l goto randomjjj
+goto pytaniexx
+
+
+
+:pytaniexx
+cls
+echo.
+echo Treœæ zadania:
+echo.
+type resources\%op%\a%x%.f1n4l
+echo.
+echo.
+echo OdpowiedŸ:
+set /p y=<resources\%op%\b%x%.txt
+choice /n /c:ABCD /M ":"
+if %errorlevel%== 1 set sk=a
+if %errorlevel%== 2 set sk=b
+if %errorlevel%== 3 set sk=c
+if %errorlevel%== 4 set sk=d
+if %testmode%== 1 set /p sk=<resources\%op%\b%x%.txt
+if %testmode%== 2 set sk=h
+if %sk%== %y% start sound1.vbs
+if %sk%== %y% goto poprawniexx
+start sound2.vbs
+goto zlexx
+
+
+
+
+:poprawniexx
+cls
+type TRUE.f1n4l
+timeout 2 /nobreak >nul
+goto menu
+
+:zlexx
+cls
+type FALSE.f1n4l
+timeout 2 /nobreak >nul
+goto menu
