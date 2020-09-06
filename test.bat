@@ -1,8 +1,11 @@
 @chcp 1250
 @echo off
-mode con cols=180 lines=60
+if exist win2.f1n4l mode con cols=180 lines=60
+if exist win.f1n4l mode 800
 mode con rate=32 delay=0
-color f0
+set /p color=<color.f1n4l
+set /p colors=<color2.f1n4l
+color %color%
 set pytania=0
 set punkty=0
 set proc=0
@@ -10,8 +13,9 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=0.7
+set version=0.8
 set testmode=0
+set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
 set /p normal=<resources\%op%\normal.txt
 set /p hard=<resources\%op%\hard.txt
@@ -32,12 +36,14 @@ findstr /v /a:%1 /R "^$" "%~2" nul
 del "%~2" > nul 2>&1
 goto :eof
 :file
-goto intro
+if %intro%== true goto intro
+if %intro%== false goto menu
+if not exist displayintro.f1n4l goto error
 :intro
 echo.
 echo.
 echo.
-call :text f1 "        I  N  F  O  R  M  A  T  Y  C  Z  N  Y"
+call :text %colors%^1 "        I  N  F  O  R  M  A  T  Y  C  Z  N  Y"
 echo.
 type intro.f1n4l
 timeout /t 4 /nobreak >nul
@@ -57,28 +63,29 @@ goto menu
 
 :menu
 cls
-call :text f1 "Informatyczny test Martyn's Studio - Menu"
+call :text %colors%^1 "Informatyczny test Martyn's Studio - Menu"
 echo.
 echo.
 echo 1 - Rozpocznij test
 echo 2 - Jedno losowe pytanie
 echo 3 - Wyniki
 echo 4 - Ustawienia baz zadañ
-echo 5 - WyjdŸ
+echo 5 - Ustawienia testu
+echo 6 - WyjdŸ
 echo.
-echo 6 - Informacje
-echo 7 - Licencja
-echo 8 - Lista zmian
-choice /n /c:12345678 /M ":"
+echo 7 - Informacje
+echo 8 - Licencja
+echo 9 - Lista zmian
+choice /n /c:123456789 /M ":"
 if %errorlevel%== 1 goto rules
 if %errorlevel%== 2 goto rulesxx
 if %errorlevel%== 3 goto wyniki1
 if %errorlevel%== 4 goto bza
-if %errorlevel%== 5 goto wyjscie
-if %errorlevel%== 6 goto info
-if %errorlevel%== 7 goto license
-if %errorlevel%== 8 goto listazmian
-goto menu
+if %errorlevel%== 5 goto ustawieniatestu
+if %errorlevel%== 6 goto wyjscie
+if %errorlevel%== 7 goto info
+if %errorlevel%== 8 goto license
+if %errorlevel%== 9 goto listazmian
 
 :listazmian
 cls
@@ -94,7 +101,7 @@ goto menu
 
 :info
 cls
-call :text f1 "Informatyczny test Martyn's Studio - Informacje"
+call :text %colors%^1 "Informatyczny test Martyn's Studio - Informacje"
 echo.
 echo.
 echo Wersja: %version%
@@ -159,7 +166,7 @@ if %errorlevel%== 2 goto wyniki1
 goto wyczysc
 :dwujka
 cls
-call :text f2 "Wyniki wyczyszczone."
+call :text %colors%^2 "Wyniki wyczyszczone."
 pause>nul
 goto wyniki1
 
@@ -175,7 +182,7 @@ goto random
 cls
 set /a er=%err% + 1
 set err=%er%
-call :text f4 "Trwa losowanie zadania"
+call :text %colors%^4 "Trwa losowanie zadania"
 if %pytania%==40 goto ennd
 set /a x=%RANDOM% * %normal% / 32768 + 1
 if not exist resources\%op%\d%x%.f1n4l set err=0
@@ -191,9 +198,10 @@ cls
 echo                         B£¥D PODCZAS £ADOWANIA
 echo.
 echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zresetowanie zmiennych w celu unikniêcia nastêpnych b³êdów.
-echo Prawdopodobnie twoja baza zadañ nie jest pe³na i zawiera mniej ni¿ 40 pytañ. Przeinstaluj j¹, lub zdiagnozuj jeœli b³¹d wyst¹pi ponownie.
+echo Prawdopodobnie twoja baza zadañ nie jest pe³na i zawiera mniej ni¿ 40 pytañ lub btakuje plików testu.
+echo Zdiagnozuj bazê pytañ lub przeinstaluj test jeœli komunikat bêdzie pojawia³ siê czêœciej.
 timeout /t 10 /nobreak >nul
-color f0
+color %color%
 set pytania=0
 set punkty=0
 set proc=0
@@ -216,9 +224,9 @@ echo TAKIE PYTANIE JU¯ BY£O>resources\%op%\d%x%.f1n4l
 set /a p2=%pytania% + 1
 set pytania=%p2%
 cls
-call :text f1 "                                                                                                            Punkty   %punkty%"
+call :text %colors%^1 "                                                                                                            Punkty   %punkty%"
 echo.
-call :text f1 "                                                                                                            Zadanie  %pytania%"
+call :text %colors%^1 "                                                                                                            Zadanie  %pytania%"
 echo.
 echo.
 echo Treœæ zadania:
@@ -256,7 +264,7 @@ goto random
 
 :rules
 cls
-call :text f5 "Witaj, %username%."
+call :text %colors%^5 "Witaj, %username%."
 echo.
 echo.
 echo Oto zasady testu:
@@ -321,7 +329,7 @@ echo ====================================================== >>resources\%op%\wyn
 echo %nick% %procp% >resources\%op%\rank\%nick%_%punkty%.txt
 echo ====================================================== >>resources\%op%\rank\%nick%_%punkty%.txt
 cls
-call :text f2 "Wyniki zapisane."
+call :text %colors%^2 "Wyniki zapisane."
 pause>nul
 set pytania=0
 set punkty=0
@@ -403,7 +411,7 @@ goto randomb
 cls
 set /a er=%err% + 1
 set err=%er%
-call :text f4 "Trwa losowanie zadania"
+call :text %colors%^4 "Trwa losowanie zadania"
 if %pytania%==43 goto ennd
 set /a x=%RANDOM% * %hard% / 32768 + 1
 if not exist resources\%op%\z%x%.f1n4l set err=0
@@ -655,7 +663,7 @@ goto r2
 
 :rulesxx
 cls
-call :text f5 "Witaj, %username%."
+call :text %colors%^5 "Witaj, %username%."
 echo.
 echo.
 echo Oto zasady testu:
@@ -674,7 +682,7 @@ goto randomjjj
 
 :randomjjj
 cls
-call :text f4 "Trwa losowanie zadania"
+call :text %colors%^4 "Trwa losowanie zadania"
 if %pytania%==40 goto ennd
 set /a x=%RANDOM% * %normal% / 32768 + 1
 if not exist resources\%op%\d%x%.f1n4l set err=0
@@ -721,3 +729,149 @@ cls
 type FALSE.f1n4l
 timeout 2 /nobreak >nul
 goto menu
+
+
+
+
+
+
+
+
+
+
+
+:ustawieniatestu
+cls
+echo Zmiana ustawieñ mo¿e wymagaæ ponownego uruchomienia programu.
+timeout 3 /nobreak >nul
+goto ustawieniatestu1
+
+
+
+
+
+
+
+
+
+:ustawieniatestu1
+cls
+call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia"
+echo.
+echo.
+echo 1 - Ustawienia graficzne
+echo 2 - Cofnij
+choice /n /c:12 /M ":"
+if %errorlevel%== 1 goto ustgraf
+if %errorlevel%== 2 goto menu
+
+
+
+
+:ustgraf
+cls
+call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne"
+echo.
+echo.
+echo 1 - Kolory
+echo 2 - Okno
+echo 3 - Cofnij
+choice /n /c:123 /M ":"
+if %errorlevel%== 1 goto ustgrafkolory
+if %errorlevel%== 2 goto ustgrafokno
+if %errorlevel%== 3 goto ustawieniatestu1
+
+
+
+
+:ustgrafkolory
+cls
+call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne - kolory"
+echo.
+echo.
+echo Kolory testu:
+call :text f0 "1 - Jasny"
+echo.
+call :text 0f "2 - Ciemny"
+echo.
+call :text 0c "3 - Ciemny-nocny"
+echo.
+echo 4 - Cofnij
+choice /n /c:1234 /M ":"
+if %errorlevel%== 1 goto white
+if %errorlevel%== 2 goto dark
+if %errorlevel%== 3 goto night
+if %errorlevel%== 4 goto ustgraf
+goto ustgrafkolory
+
+
+
+
+
+:ustgrafokno
+cls
+call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne - okno"
+echo.
+echo.
+echo Rozmiar okna:
+echo 1 - Mój monitor (Zalecane)
+echo 2 - Moja konsola
+echo 3 - 180x60
+echo 4 - cofnij
+choice /n /c:1234 /M ":"
+if %errorlevel%== 1 goto go1
+if %errorlevel%== 2 goto go2
+if %errorlevel%== 3 goto go3
+if %errorlevel%== 4 goto ustgraf
+goto ustgrafokno
+
+
+
+:go1
+echo 800>win.f1n4l
+if exist win2.f1n4l del win2.f1n4l
+goto go4
+:go2
+if exist win.f1n4l del win.f1n4l
+if exist win2.f1n4l del win2.f1n4l
+goto go4
+:go3
+echo 180x60>win2.f1n4l
+if exist win.f1n4l del win.f1n4l
+goto go4
+:go4
+if exist win2.f1n4l mode con cols=180 lines=60
+if exist win.f1n4l mode 800
+goto ustgrafokno
+
+
+
+
+
+
+
+
+:white
+cls
+echo f0>color.f1n4l
+echo f>color2.f1n4l
+set /p color=<color.f1n4l
+set /p colors=<color2.f1n4l
+color %color%
+goto ustgrafkolory
+:dark
+cls
+echo 0f>color.f1n4l
+echo ^0>color2.f1n4l
+set /p color=<color.f1n4l
+set /p colors=<color2.f1n4l
+color %color%
+goto ustgrafkolory
+:night
+cls
+echo 0c>color.f1n4l
+echo ^0>color2.f1n4l
+set /p color=<color.f1n4l
+set /p colors=<color2.f1n4l
+color %color%
+goto ustgrafkolory

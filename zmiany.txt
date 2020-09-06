@@ -37,6 +37,13 @@
 
 ========================================= 0.7 =========================================
 
-- Dodanie dodatkowego trybu - jednego zadania.
+- Dodatkowy tryb - jednego zadania.
 - Zmiana domyœlnej wielkoœci okna.
+- Zmiana menu programu.
 - Przyspieszenie reakcji na klawisze.
+
+========================================= 0.8 =========================================
+
+- Ustawienia graficzne dotycz¹ce kolorów i wielkoœci okna.
+- Zmiana menu programu.
+- Zmiana wygl¹du komunikatu o b³êdzie.
