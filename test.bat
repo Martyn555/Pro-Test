@@ -13,7 +13,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=0.8
+set version=0.9
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
@@ -402,7 +402,7 @@ goto dddd1
 :dodatkowe
 start sound3.vbs
 cls
-echo Brawo, znasz odpowiedzi na wszystkie zadanie ci do tej pory pytania!
+echo Brawo, znasz odpowiedzi na wszystkie zadane ci do tej pory pytania!
 echo Po wciœniêciu dowolnego klawisza zostan¹ ci zadane 3 kolejne.
 pause>nul
 goto randomb
@@ -672,8 +672,6 @@ echo Test jest na zasadzie wyboru a, b, c, d.
 echo Odpowiedzi podajemy klikaj¹c klawisz odpowiadaj¹cy odpowiedzi.
 echo Niskiej tonacji dŸwiêk informuje o b³êdnej odpowiedzi, a wysokiej tonacji o poprawnej.
 pause>nul
-del resources\%op%\d*.f1n4l
-del resources\%op%\z*.f1n4l
 set czasrozpoczecia=%time%
 goto randomjjj
 
@@ -685,10 +683,8 @@ cls
 call :text %colors%^4 "Trwa losowanie zadania"
 if %pytania%==40 goto ennd
 set /a x=%RANDOM% * %normal% / 32768 + 1
-if not exist resources\%op%\d%x%.f1n4l set err=0
 if not exist resources\%op%\a%x%.f1n4l goto error
 if not exist resources\%op%\b%x%.txt goto error
-if exist resources\%op%\d%x%.f1n4l goto randomjjj
 goto pytaniexx
 
 

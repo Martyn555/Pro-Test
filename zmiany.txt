@@ -47,3 +47,8 @@
 - Ustawienia graficzne dotycz¹ce kolorów i wielkoœci okna.
 - Zmiana menu programu.
 - Zmiana wygl¹du komunikatu o b³êdzie.
+
+========================================= 0.9 =========================================
+
+- Naprawienie b³êdu zwi¹zanego z brakiem pliku w bazie danych na trybie jednego pytania.
+- Poprawienie literówki w informacji o czterdziestu poprawnych odpowiedziach.
