@@ -518,6 +518,7 @@ goto randomb
 :bza
 cls
 call :text %colors%^1 "Ustawienia - bazy zadañ"
+echo.
 echo Aktualnie wybrana baza: %op%
 echo.
 echo 1 - Wyœwietl zawartoœæ wybranej bazy zadañ
