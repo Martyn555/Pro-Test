@@ -52,3 +52,8 @@
 
 - Naprawienie b³êdu zwi¹zanego z brakiem pliku w bazie danych na trybie jednego pytania.
 - Poprawienie literówki w informacji o czterdziestu poprawnych odpowiedziach.
+
+========================================= 1.0 =========================================
+
+- Wprowadzenie sprawdzania kompatybilnoœci systemu operacyjnego przy w³¹czaniu testu.
+- Wprowadzenie mo¿liwoœci zautomatyzowanego pobierania baz zadañ przez internet.

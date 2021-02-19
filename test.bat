@@ -1,5 +1,44 @@
 @chcp 1250
 @echo off
+title Informatyczny test Martyn's Studio
+cls
+
+:update
+echo Wczytywanie...
+if not exist sysin.f1n4l systeminfo>sysin.f1n4l
+find /C /I "Microsoft Windows 10" "sysin.f1n4l">win.txt
+for /f "skip=1 tokens=3" %%G IN (win.txt) DO echo %%G >win.f1n4l
+set /p windowsversion=<win.f1n4l
+del win.txt
+del win.f1n4l
+if %windowsversion%== 0 goto wrongsys
+rd /s /q updatecat
+md updatecat
+echo Sprawdzanie aktualizacji...
+call powershell wget "http://download1508.mediafire.com/ku076501h0qg/afex78fm5i51tap/versions.txt" -outfile "updatecat\versions.txt"
+if not exist updatecat\versions.txt goto updateblone
+set /p updatev=<updatecat\versions.txt
+goto endupdate
+:update2
+cls
+echo Zosta³a znaleziona aktualizacja testu. Czy chcesz j¹ zainstalowaæ?
+echo.
+echo 1 - Tak. (Zalecane)
+echo 2 - Nie.
+choice /n /c:12 /M ":"
+if %errorlevel%== 1 goto zrobupdate
+if %errorlevel%== 2 goto endupdate
+:zrobupdate
+cls
+echo [%time%] Trwa pobieranie aktualizacji...
+call powershell wget "https://codeload.github.com/Martyn555/ITtestPL/zip/master" -outfile "updatecat\zipittestpl.zip"
+echo [%time%] Trwa Wypakowywanie aktualizacji...
+call powershell Expand-Archive -Force updatecat\zipittestpl.zip '%cd%\'
+call powershell Expand-Archive -Force 'TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip' '%cd%\'
+del "TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip"
+rd /s /q updatecat
+:endupdate
+
 if exist win2.f1n4l mode con cols=180 lines=60
 if exist win.f1n4l mode 800
 mode con rate=32 delay=0
@@ -13,7 +52,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=0.9
+set version=1.0
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
@@ -36,6 +75,9 @@ findstr /v /a:%1 /R "^$" "%~2" nul
 del "%~2" > nul 2>&1
 goto :eof
 :file
+
+if not %version%==%updatev% goto update2
+
 if %intro%== true goto intro
 if %intro%== false goto menu
 if not exist displayintro.f1n4l goto error
@@ -200,6 +242,7 @@ echo.
 echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zresetowanie zmiennych w celu unikniêcia nastêpnych b³êdów.
 echo Prawdopodobnie twoja baza zadañ nie jest pe³na i zawiera mniej ni¿ 40 pytañ lub btakuje plików testu.
 echo Zdiagnozuj bazê pytañ lub przeinstaluj test jeœli komunikat bêdzie pojawia³ siê czêœciej.
+del sysin.f1n4l
 timeout /t 10 /nobreak >nul
 color %color%
 set pytania=0
@@ -472,20 +515,22 @@ goto randomb
 
 :bza
 cls
-echo Ustawienia - bazy zadañ
+call :text %colors%^1 "Ustawienia - bazy zadañ"
 echo Aktualnie wybrana baza: %op%
 echo.
 echo 1 - Wyœwietl zawartoœæ wybranej bazy zadañ
 echo 2 - Zmieñ bazê zadañ
 echo 3 - Diagnozuj wybran¹ bazê zadañ
 echo 4 - Wyœwietl logi poprzedniej diagnozy
-echo 5 - Cofnij
-choice /n /c:12345 /M ":"
+echo 5 - Przegl¹daj bazy zadañ przez internet
+echo 6 - Cofnij
+choice /n /c:123456 /M ":"
 if %errorlevel%== 1 goto baza
 if %errorlevel%== 2 goto usbaza
 if %errorlevel%== 3 goto diag
 if %errorlevel%== 4 goto podiag
-if %errorlevel%== 5 goto menu
+if %errorlevel%== 5 goto onlineshop
+if %errorlevel%== 6 goto menu
 goto bza
 
 :usbaza
@@ -871,3 +916,48 @@ set /p color=<color.f1n4l
 set /p colors=<color2.f1n4l
 color %color%
 goto ustgrafkolory
+
+
+
+
+
+:wrongsys
+color 9f
+cls
+echo                         B£¥D PODCZAS £ADOWANIA
+echo.
+echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zamkniêcie testu w celu unikniêcia uszkodzenia programu.
+echo Twój system nie jest zgodny z wymaganiami tego programu.
+echo Uruchom Informatyczny test za pomoc¹ systemu operacyjnego Windows 10, a dla najwy¿szej kompatybilnoœci zaleca siê Windows 10 Professional.
+echo Przeinstaluj test jeœli komunikat dalej bêdzie pojawia³ siê na zgodnym systemie.
+del sysin.f1n4l
+timeout /t 10 /nobreak >nul
+exit
+
+
+:onlineshop
+del onlineshop.cmd
+cls
+echo Trwa pobieranie listy baz zadañ...
+call powershell wget "http://download938.mediafire.com/jngyzyyten3g/xec1c234ubzu4he/onlineshop.cmd" -outfile "onlineshop.cmd"
+if not exist onlineshop.cmd goto blnoe
+if exist onlineshop.cmd call onlineshop.cmd
+goto bza
+
+
+
+
+
+
+:blnoe
+cls
+echo Zawartoœæ nie zosta³a pobrana. Prawdopodobnie brakuje po³¹czenia z sieci¹ lub serwis nie jest chwilowo dostêpny.
+timeout /t 10 >nul
+goto bza
+
+:updateblone
+cls
+echo Zawartoœæ nie zosta³a pobrana. Prawdopodobnie brakuje po³¹czenia z sieci¹ lub serwis nie jest chwilowo dostêpny.
+echo Za moment nast¹pi ponowienie próby sprawdzenia aktualizacji.
+timeout /t 10 >nul
+goto update
