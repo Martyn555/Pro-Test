@@ -34,8 +34,10 @@ echo [%time%] Trwa pobieranie aktualizacji...
 call powershell wget "https://codeload.github.com/Martyn555/ITtestPL/zip/master" -outfile "updatecat\zipittestpl.zip"
 echo [%time%] Trwa Wypakowywanie aktualizacji...
 call powershell Expand-Archive -Force updatecat\zipittestpl.zip '%cd%\'
+copy "ITtestPL-master\*.*" "%cd%\"
 call powershell Expand-Archive -Force 'TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip' '%cd%\'
 del "TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip"
+rd /s /q ITtestPL-master
 rd /s /q updatecat
 :endupdate
 
@@ -52,7 +54,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.0
+set version=0.9
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
