@@ -942,7 +942,7 @@ exit
 del onlineshop.cmd
 cls
 echo Trwa pobieranie listy baz zadañ...
-call powershell wget "http://download938.mediafire.com/jngyzyyten3g/xec1c234ubzu4he/onlineshop.cmd" -outfile "onlineshop.cmd"
+call powershell wget "https://download1080.mediafire.com/izi2ax791hzg/xec1c234ubzu4he/onlineshop.cmd" -outfile "onlineshop.cmd"
 if not exist onlineshop.cmd goto blnoe
 if exist onlineshop.cmd call onlineshop.cmd
 goto bza
