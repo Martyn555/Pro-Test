@@ -58,3 +58,7 @@
 - Wprowadzenie sprawdzania kompatybilnoœci systemu operacyjnego przy w³¹czaniu testu.
 - Wprowadzenie mo¿liwoœci zautomatyzowanego pobierania baz zadañ przez internet.
 - Automatyzcne sprawdzanie aktualizacji.
+
+======================================== 1.0.1 ========================================
+
+- Naprawienie b³êdów zwi¹zanych z aktualizacjami.
