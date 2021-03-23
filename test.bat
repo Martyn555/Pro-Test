@@ -18,7 +18,7 @@ if %windowsversion%== 0 goto wrongsys
 rd /s /q updatecat
 md updatecat
 echo Sprawdzanie aktualizacji...
-call powershell wget "http://download1508.mediafire.com/1vno97ducyvg/afex78fm5i51tap/versions.txt" -outfile "updatecat\versions.txt"
+call powershell wget "https://raw.githubusercontent.com/Martyn555/ITtestPL/master/allversions.txt" -outfile "updatecat\versions.txt"
 if not exist updatecat\versions.txt goto updateblone
 set /p updatev=<updatecat\versions.txt
 goto endupdate
