@@ -3,6 +3,9 @@
 title Informatyczny test Martyn's Studio
 cls
 
+
+
+
 :update
 echo Wczytywanie...
 if not exist sysin.f1n4l systeminfo>sysin.f1n4l
@@ -15,10 +18,11 @@ if %windowsversion%== 0 goto wrongsys
 rd /s /q updatecat
 md updatecat
 echo Sprawdzanie aktualizacji...
-call powershell wget "http://download1508.mediafire.com/ku076501h0qg/afex78fm5i51tap/versions.txt" -outfile "updatecat\versions.txt"
+call powershell wget "http://download1508.mediafire.com/1vno97ducyvg/afex78fm5i51tap/versions.txt" -outfile "updatecat\versions.txt"
 if not exist updatecat\versions.txt goto updateblone
 set /p updatev=<updatecat\versions.txt
 goto endupdate
+
 :update2
 cls
 echo Zosta³a znaleziona aktualizacja testu. Czy chcesz j¹ zainstalowaæ?
@@ -28,6 +32,7 @@ echo 2 - Nie.
 choice /n /c:12 /M ":"
 if %errorlevel%== 1 goto zrobupdate
 if %errorlevel%== 2 goto endupdate
+
 :zrobupdate
 cls
 echo [%time%] Trwa pobieranie aktualizacji...
@@ -40,6 +45,10 @@ del "TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip"
 rd /s /q ITtestPL-master
 rd /s /q updatecat
 :endupdate
+
+
+
+
 
 if exist win2.f1n4l mode con cols=180 lines=60
 if exist win.f1n4l mode 800
