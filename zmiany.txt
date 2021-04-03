@@ -62,3 +62,7 @@
 ======================================== 1.0.1 ========================================
 
 - Naprawienie b³êdów zwi¹zanych z aktualizacjami.
+
+======================================== 1.0.2 ========================================
+
+- Program deinstalacyjny, dzia³aj¹cy po instalacji testu oficialnym instalatorem.
