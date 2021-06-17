@@ -46,7 +46,7 @@ cls
 echo Za chwilę rozpocznie się kasacja programu...
 timeout 1 /nobreak >nul
 
-if not exist "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ITtest\Professional Test.bat" goto skip1
+if not exist "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Pro-Test\Professional Test.bat" goto skip1
 echo [%time%] Usuwanie skrótów z menu start...
 cd /d "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
 rd /s /q Pro-Test
