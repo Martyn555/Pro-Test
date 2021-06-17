@@ -1,77 +1,77 @@
 ========================================= 0.2 =========================================
 
-- Mo¿liwoœæ dadawania w³asnych baz zadañ.
-- Narzêdzie do diagnozowania baz zadañ.
+- MoÅ¼liwoÅ›Ä‡ dadawania wÅ‚asnych baz zadaÅ„.
+- NarzÄ™dzie do diagnozowania baz zadaÅ„.
 - Zmiana menu programu.
 - 2 tryby testowania odpowiedzi.
 
 ========================================= 0.3 =========================================
 
-- Poprawiona diagnostyka baz zadañ, sprawdzaj¹ca dodatkowe parametry.
-- Mo¿liwoœæ wyœwietlenia wyników z ostatniej diagnostyki.
-- Czytanie autora i wersji testu z bazy zadañ.
-- Szybsze losowanie zadañ.
-- Zmiana wygl¹du komunikatu o b³êdzie.
+- Poprawiona diagnostyka baz zadaÅ„, sprawdzajÄ…ca dodatkowe parametry.
+- MoÅ¼liwoÅ›Ä‡ wyÅ›wietlenia wynikÃ³w z ostatniej diagnostyki.
+- Czytanie autora i wersji testu z bazy zadaÅ„.
+- Szybsze losowanie zadaÅ„.
+- Zmiana wyglÄ…du komunikatu o bÅ‚Ä™dzie.
 - Zmiana menu programu.
 
 ========================================= 0.4 =========================================
 
 - Ikona testu.
-- Naprawienie b³êdów.
+- Naprawienie bÅ‚Ä™dÃ³w.
 
 ========================================= 0.5 =========================================
 
 - Tryby testowania odpowiedzi w zadaniach dodatkowych.
-- Przeliczanie punktów na procenty.
+- Przeliczanie punktÃ³w na procenty.
 - Zmiana menu programu.
-- Ranking wyników.
+- Ranking wynikÃ³w.
 
 ========================================= 0.6 =========================================
 
-- Naprawienie b³êdów diagnostyki.
-- Poprawienie literówek.
+- Naprawienie bÅ‚Ä™dÃ³w diagnostyki.
+- Poprawienie literÃ³wek.
 - Przyspieszenie diagnostyki.
-- Szybki wybór opcji w menu.
-- Zmiana wygl¹du komunikatu o b³êdzie.
-- Przeniesienie trybów testowania z menu do zadañ.
+- Szybki wybÃ³r opcji w menu.
+- Zmiana wyglÄ…du komunikatu o bÅ‚Ä™dzie.
+- Przeniesienie trybÃ³w testowania z menu do zadaÅ„.
 
 ========================================= 0.7 =========================================
 
 - Dodatkowy tryb - jednego zadania.
-- Zmiana domyœlnej wielkoœci okna.
+- Zmiana domyÅ›lnej wielkoÅ›ci okna.
 - Zmiana menu programu.
 - Przyspieszenie reakcji na klawisze.
 
 ========================================= 0.8 =========================================
 
-- Ustawienia graficzne dotycz¹ce kolorów i wielkoœci okna.
+- Ustawienia graficzne dotyczÄ…ce kolorÃ³w i wielkoÅ›ci okna.
 - Zmiana menu programu.
-- Zmiana wygl¹du komunikatu o b³êdzie.
+- Zmiana wyglÄ…du komunikatu o bÅ‚Ä™dzie.
 
 ========================================= 0.9 =========================================
 
-- Naprawienie b³êdu zwi¹zanego z brakiem pliku w bazie danych na trybie jednego pytania.
-- Poprawienie literówki w informacji o czterdziestu poprawnych odpowiedziach.
+- Naprawienie bÅ‚Ä™du zwiÄ…zanego z brakiem pliku w bazie danych na trybie jednego pytania.
+- Poprawienie literÃ³wki w informacji o czterdziestu poprawnych odpowiedziach.
 
 ========================================= 1.0 =========================================
 
-- Wprowadzenie sprawdzania kompatybilnoœci systemu operacyjnego przy w³¹czaniu testu.
-- Wprowadzenie mo¿liwoœci zautomatyzowanego pobierania baz zadañ przez internet.
+- Wprowadzenie sprawdzania kompatybilnoÅ›ci systemu operacyjnego przy wÅ‚Ä…czaniu testu.
+- Wprowadzenie moÅ¼liwoÅ›ci zautomatyzowanego pobierania baz zadaÅ„ przez internet.
 - Automatyzcne sprawdzanie aktualizacji.
 
 ======================================== 1.0.1 ========================================
 
-- Naprawienie b³êdów zwi¹zanych z aktualizacjami.
+- Naprawienie bÅ‚Ä™dÃ³w zwiÄ…zanych z aktualizacjami.
 
 ======================================== 1.0.2 ========================================
 
-- Program deinstalacyjny, dzia³aj¹cy po instalacji testu oficialnym instalatorem.
+- Program deinstalacyjny, dziaÅ‚ajÄ…cy po instalacji testu oficialnym instalatorem.
 
 ========================================= 1.2 =========================================
 
-- Rezygnacja z powi¹zañ ze studiem.
+- Rezygnacja z powiÄ…zaÅ„ ze studiem.
 - Zmiana ekranu powitalnego.
 - Zmiana nazwy programu na Professional test.
-- Usuniêcie starego pliku licencji, o rozszerzeniu txt.
-- Naprawienie b³êdu Dezinstalatora.
-- Odchudzenie plików o nieu¿ywane ikony.
+- UsuniÄ™cie starego pliku licencji, o rozszerzeniu txt.
+- Naprawienie bÅ‚Ä™du dezinstalatora.
+- Odchudzenie plikÃ³w o nieuÅ¼ywane ikony.
