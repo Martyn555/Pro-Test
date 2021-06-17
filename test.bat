@@ -322,7 +322,7 @@ call :text %colors%^5 "Witaj, %username%."
 echo.
 echo.
 echo Oto zasady testu:
-echo Po wciœniêciu dowolnego klawisza zostanie ci zadane 40 pytañ z dziedziny informatyki.
+echo Po wciœniêciu dowolnego klawisza zostanie ci zadane 40 pytañ.
 echo Test jest na zasadzie wyboru a, b, c, d.
 echo Wciœniêcie entera bez podania odpowiedzi bêdzie uznawane za tak¹ sam¹ odpowiedŸ jak poprzednia.
 echo Odpowiedzi podajemy ma³ymi literami i akceptujemy enterem.
@@ -724,7 +724,7 @@ call :text %colors%^5 "Witaj, %username%."
 echo.
 echo.
 echo Oto zasady testu:
-echo Po wciœniêciu dowolnego klawisza zostanie ci zadane jedno pytanie z dziedziny informatyki.
+echo Po wciœniêciu dowolnego klawisza zostanie ci zadane jedno pytanie.
 echo Test jest na zasadzie wyboru a, b, c, d.
 echo Odpowiedzi podajemy klikaj¹c klawisz odpowiadaj¹cy odpowiedzi.
 echo Niskiej tonacji dŸwiêk informuje o b³êdnej odpowiedzi, a wysokiej tonacji o poprawnej.
