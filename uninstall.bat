@@ -1,5 +1,5 @@
 @echo off
-title Dezinstalator programu Informatyczny test
+title Dezinstalator Professional test
 color f0
 set miejsce=%cd%
 chcp 65001
@@ -9,7 +9,6 @@ for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1)
 )>nul
 goto :file
 :text
-rem Martyn's Studio
 echo off
 <nul set /p ".=%DEL%" > "%~2"
 findstr /v /a:%1 /R "^$" "%~2" nul
@@ -18,7 +17,7 @@ goto :eof
 :file
 
 cls
-echo Witamy w programie kasacyjnym informatycznego testu.
+echo Witamy w programie kasacyjnym programu Professional test.
 echo Czy na pewno chcesz usunąć test ze swojego komputera?
 echo.
 call :text fc "1"
@@ -47,23 +46,23 @@ cls
 echo Za chwilę rozpocznie się kasacja programu...
 timeout 1 /nobreak >nul
 
-if not exist "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ITtest\InformatycznyTest.bat" goto skip1
+if not exist "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\ITtest\Professional Test.bat" goto skip1
 echo [%time%] Usuwanie skrótów z menu start...
 cd /d "%systemdrive%\Users\%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\"
-rd /s /q ITtest
+rd /s /q Pro-Test
 cd /d "%miejsce%"
 
 :skip1
-if not exist "%systemdrive%\Users\%username%\desktop\InformatycznyTest.bat" goto skip2
+if not exist "%systemdrive%\Users\%username%\desktop\Professional Test.bat" goto skip2
 echo [%time%] Usuwanie skrótów z pulpitu...
-cd /d %systemdrive%\Users\%username%\desktop\"
-del InformatycznyTest.bat
+cd /d "%systemdrive%\Users\%username%\desktop\"
+del "Professional Test.bat"
 cd /d "%miejsce%"
 
 :skip2
 cd ..
 echo [%time%] Usuwanie programu...
-rd /s /q ITtestPL-master
+rd /s /q Pro-Test-master
 echo.
 echo Gotowe
 timeout 2 /nobreak >nul

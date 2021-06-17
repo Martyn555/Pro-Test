@@ -66,3 +66,12 @@
 ======================================== 1.0.2 ========================================
 
 - Program deinstalacyjny, dzia³aj¹cy po instalacji testu oficialnym instalatorem.
+
+========================================= 1.2 =========================================
+
+- Rezygnacja z powi¹zañ ze studiem.
+- Zmiana ekranu powitalnego.
+- Zmiana nazwy programu na Professional test.
+- Usuniêcie starego pliku licencji, o rozszerzeniu txt.
+- Naprawienie b³êdu Dezinstalatora.
+- Odchudzenie plików o nieu¿ywane ikony.

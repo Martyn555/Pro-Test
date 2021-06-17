@@ -1,6 +1,6 @@
 @chcp 1250
 @echo off
-title Informatyczny test Martyn's Studio
+title Professional test
 cls
 
 
@@ -18,7 +18,7 @@ if %windowsversion%== 0 goto wrongsys
 rd /s /q updatecat
 md updatecat
 echo Sprawdzanie aktualizacji...
-call powershell wget "https://raw.githubusercontent.com/Martyn555/ITtestPL/master/allversions.txt" -outfile "updatecat\versions.txt"
+call powershell wget "https://raw.githubusercontent.com/Martyn555/Pro-Test/master/allversions.txt" -outfile "updatecat\versions.txt"
 if not exist updatecat\versions.txt goto updateblone
 set /p updatev=<updatecat\versions.txt
 goto endupdate
@@ -36,13 +36,13 @@ if %errorlevel%== 2 goto endupdate
 :zrobupdate
 cls
 echo [%time%] Trwa pobieranie aktualizacji...
-call powershell wget "https://codeload.github.com/Martyn555/ITtestPL/zip/master" -outfile "updatecat\zipittestpl.zip"
+call powershell wget "https://codeload.github.com/Martyn555/Pro-Test/zip/master" -outfile "updatecat\ziptestpl.zip"
 echo [%time%] Trwa Wypakowywanie aktualizacji...
-call powershell Expand-Archive -Force updatecat\zipittestpl.zip '%cd%\'
-copy "ITtestPL-master\*.*" "%cd%\"
+call powershell Expand-Archive -Force updatecat\ziptestpl.zip '%cd%\'
+copy "Pro-Test-master\*.*" "%cd%\"
 call powershell Expand-Archive -Force 'TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip' '%cd%\'
 del "TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip"
-rd /s /q ITtestPL-master
+rd /s /q Pro-Test-master
 rd /s /q updatecat
 :endupdate
 
@@ -63,7 +63,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.0.2
+set version=1.2
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
@@ -72,7 +72,7 @@ set /p hard=<resources\%op%\hard.txt
 set /p op=<baza.f1n4l
 set /p forversion=<resources\%op%\forversion.txt
 set /p author=<resources\%op%\author.txt
-title Informatyczny test Martyn's Studio      Wersja: %version%
+title Professional test      Wersja: %version%
 setlocal EnableDelayedExpansion
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
   set "DEL=%%a"
@@ -96,7 +96,7 @@ if not exist displayintro.f1n4l goto error
 echo.
 echo.
 echo.
-call :text %colors%^1 "        I  N  F  O  R  M  A  T  Y  C  Z  N  Y"
+call :text %colors%^1 "          P  R  O  F  E  S  S  I  O  N  A  L"
 echo.
 type intro.f1n4l
 timeout /t 4 /nobreak >nul
@@ -116,7 +116,7 @@ goto menu
 
 :menu
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - Menu"
+call :text %colors%^1 "Professional test - Menu"
 echo.
 echo.
 echo 1 - Rozpocznij test
@@ -148,13 +148,13 @@ goto menu
 
 :license
 cls
-type license.txt
+type license
 pause>nul
 goto menu
 
 :info
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - Informacje"
+call :text %colors%^1 "Professional test - Informacje"
 echo.
 echo.
 echo Wersja: %version%
@@ -809,7 +809,7 @@ goto ustawieniatestu1
 
 :ustawieniatestu1
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia"
+call :text %colors%^1 "Professional test - ustawienia"
 echo.
 echo.
 echo 1 - Ustawienia graficzne
@@ -823,7 +823,7 @@ if %errorlevel%== 2 goto menu
 
 :ustgraf
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne"
+call :text %colors%^1 "Professional test - ustawienia graficzne"
 echo.
 echo.
 echo 1 - Kolory
@@ -839,7 +839,7 @@ if %errorlevel%== 3 goto ustawieniatestu1
 
 :ustgrafkolory
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne - kolory"
+call :text %colors%^1 "Professional test - ustawienia graficzne - kolory"
 echo.
 echo.
 echo Kolory testu:
@@ -863,7 +863,7 @@ goto ustgrafkolory
 
 :ustgrafokno
 cls
-call :text %colors%^1 "Informatyczny test Martyn's Studio - ustawienia graficzne - okno"
+call :text %colors%^1 "Professional test - ustawienia graficzne - okno"
 echo.
 echo.
 echo Rozmiar okna:
@@ -940,7 +940,7 @@ echo                         B£¥D PODCZAS £ADOWANIA
 echo.
 echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zamkniêcie testu w celu unikniêcia uszkodzenia programu.
 echo Twój system nie jest zgodny z wymaganiami tego programu.
-echo Uruchom Informatyczny test za pomoc¹ systemu operacyjnego Windows 10, a dla najwy¿szej kompatybilnoœci zaleca siê Windows 10 Professional.
+echo Uruchom Professional test za pomoc¹ systemu operacyjnego Windows 10, a dla najwy¿szej kompatybilnoœci zaleca siê Windows 10 Professional.
 echo Przeinstaluj test jeœli komunikat dalej bêdzie pojawia³ siê na zgodnym systemie.
 del sysin.f1n4l
 timeout /t 10 /nobreak >nul
