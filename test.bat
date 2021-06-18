@@ -78,7 +78,8 @@ rd /s /q Pro-Test-master
 rd /s /q updatecat
 echo [%time%] Gotowe!
 timeout 5 >nul
-:endupdate
+start test.bat
+exit
 
 
 

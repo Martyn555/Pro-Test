@@ -82,3 +82,4 @@
 - Dodanie Mo¿liwoœci pominiêcia komunikatu o ponownym uruchomieniu w ustawieniach.
 - Wprowadzenie ustawieñ dŸwiêku.
 - Naprawienie problemu resetuj¹cych siê ustawieñ po aktualizacjach.
+- Wprowadzenie wymuszenia ponownego uruchomienia testu po aktualizacji.
