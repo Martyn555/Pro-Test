@@ -3,5 +3,4 @@
 Stale trwają prace nad aktualizacjami programu.
 Łatwy w interpretacji i przejrzysty kod sprawia, że **Informatyczny test** jest bardzo przyjemny w modowaniu.
 
-**Do instalacji zaleca się użycie poniższego instalatora.**
-https://drive.google.com/file/d/1g0JtpQpZC7fNAK1IpR6IM4El3_yfnwBU/view?usp=sharing
+**Do instalacji zaleca się użycie instalatora.** - https://drive.google.com/file/d/1g0JtpQpZC7fNAK1IpR6IM4El3_yfnwBU/view?usp=sharing
