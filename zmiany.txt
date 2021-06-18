@@ -83,3 +83,4 @@
 - Wprowadzenie ustawieñ dŸwiêku.
 - Naprawienie problemu resetuj¹cych siê ustawieñ po aktualizacjach.
 - Wprowadzenie wymuszenia ponownego uruchomienia testu po aktualizacji.
+- Zaimplementowanie mo¿liwoœci uruchomienia testu na systemie Windows 11.
