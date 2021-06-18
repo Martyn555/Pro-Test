@@ -6,8 +6,8 @@ Stale trwają prace nad aktualizacjami programu.
 **Do instalacji zaleca się użycie instalatora.** - https://drive.google.com/file/d/1g0JtpQpZC7fNAK1IpR6IM4El3_yfnwBU/view?usp=sharing
 
 Minimalne wymagania:
-OS: Windows 10 x32
-Procesor: 2GHz
-RAM: 1GB
-Dostępna przestrzeń dysku: 500MB
-Połączenie z siecią: tak
+OS: Windows 10 x32;
+Procesor: 2GHz;
+RAM: 1GB;
+Dostępna przestrzeń dysku: 500MB;
+Połączenie z siecią: tak;
