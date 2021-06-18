@@ -8,6 +8,21 @@ cls
 
 :update
 echo Wczytywanie...
+
+
+
+if not exist sysin.f1n4l systeminfo>sysin.f1n4l
+find /C /I "Microsoft Windows 11" "sysin.f1n4l">win.txt
+for /f "skip=1 tokens=3" %%G IN (win.txt) DO echo %%G >win.f1n4l
+set /p windowsversion=<win.f1n4l
+del win.txt
+del win.f1n4l
+if %windowsversion%== 0 goto findwin10
+goto gitsys
+
+
+
+:findwin10
 if not exist sysin.f1n4l systeminfo>sysin.f1n4l
 find /C /I "Microsoft Windows 10" "sysin.f1n4l">win.txt
 for /f "skip=1 tokens=3" %%G IN (win.txt) DO echo %%G >win.f1n4l
@@ -15,7 +30,14 @@ set /p windowsversion=<win.f1n4l
 del win.txt
 del win.f1n4l
 if %windowsversion%== 0 goto wrongsys
+goto gitsys
+
+
+
+:gitsys
 rd /s /q updatecat
+set /p doskipupdate=<checkupdate.f1n4l
+if %doskipupdate%== false goto endupdate
 md updatecat
 echo Sprawdzanie aktualizacji...
 call powershell wget "https://raw.githubusercontent.com/Martyn555/Pro-Test/master/allversions.txt" -outfile "updatecat\versions.txt"
@@ -39,11 +61,23 @@ echo [%time%] Trwa pobieranie aktualizacji...
 call powershell wget "https://codeload.github.com/Martyn555/Pro-Test/zip/master" -outfile "updatecat\ziptestpl.zip"
 echo [%time%] Trwa Wypakowywanie aktualizacji...
 call powershell Expand-Archive -Force updatecat\ziptestpl.zip '%cd%\'
+echo [%time%] Trwa kopiowanie ustawieñ...
+copy "displayintro.f1n4l" "Pro-Test-master\"
+copy "color2.f1n4l" "Pro-Test-master\"
+copy "color.f1n4l" "Pro-Test-master\"
+copy "checkupdate.f1n4l" "Pro-Test-master\"
+copy "baza.f1n4l" "Pro-Test-master\"
+copy "playsound.f1n4l" "Pro-Test-master\"
+echo [%time%] Trwa wprowadzanie zmian...
 copy "Pro-Test-master\*.*" "%cd%\"
+echo [%time%] Trwa wypakowywanie zasobów...
 call powershell Expand-Archive -Force 'TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip' '%cd%\'
+echo [%time%] Trwa kasowanie œmieci...
 del "TE 2 KATALOGI MAJ¥ BYÆ W FOLDERZE Z RESZT¥ PLIKÓW.zip"
 rd /s /q Pro-Test-master
 rd /s /q updatecat
+echo [%time%] Gotowe!
+timeout 5 >nul
 :endupdate
 
 
@@ -63,7 +97,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.2
+set version=1.2.1
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
@@ -72,6 +106,7 @@ set /p hard=<resources\%op%\hard.txt
 set /p op=<baza.f1n4l
 set /p forversion=<resources\%op%\forversion.txt
 set /p author=<resources\%op%\author.txt
+set /p sounds=<playsound.f1n4l
 title Professional test      Wersja: %version%
 setlocal EnableDelayedExpansion
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
@@ -87,7 +122,7 @@ del "%~2" > nul 2>&1
 goto :eof
 :file
 
-if not %version%==%updatev% goto update2
+if %doskipupdate%== true if not %version%==%updatev% goto update2
 
 if %intro%== true goto intro
 if %intro%== false goto menu
@@ -225,7 +260,7 @@ goto wyniki1
 
 :plus1punkt
 cls
-start sound1.vbs
+if %sounds%== true start sound1.vbs
 set /a p1=%punkty% + 1
 set punkty=%p1%
 if %punkty%== 40 goto dodatkowe
@@ -305,7 +340,7 @@ if %odpowiedz%== testmode2 timeout /t 2 /nobreak >nul
 if %testmode%== 1 set /p odpowiedz=<resources\%op%\b%x%.txt
 if %testmode%== 2 set odpowiedz=h
 if %odpowiedz%== %y% goto plus1punkt
-start sound2.vbs
+if %sounds%== true start sound2.vbs
 goto random
 
 
@@ -454,7 +489,7 @@ goto dddd1
 
 
 :dodatkowe
-start sound3.vbs
+if %sounds%== true start sound3.vbs
 cls
 echo Brawo, znasz odpowiedzi na wszystkie zadane ci do tej pory pytania!
 echo Po wciœniêciu dowolnego klawisza zostan¹ ci zadane 3 kolejne.
@@ -505,13 +540,13 @@ if %odpowiedz%== testmode2 timeout /t 2 /nobreak >nul
 if %testmode%== 1 set /p odpowiedz=<resources\%op%\i%x%.txt
 if %testmode%== 2 set odpowiedz=h
 if %odpowiedz%== %y% goto plus1punktb
-start sound2.vbs
+if %sounds%== true start sound2.vbs
 goto randomb
 
 
 :plus1punktb
 cls
-start sound1.vbs
+if %sounds%== true start sound1.vbs
 set /a p1=%punkty% + 1
 set punkty=%p1%
 goto randomb
@@ -763,9 +798,9 @@ if %errorlevel%== 3 set sk=c
 if %errorlevel%== 4 set sk=d
 if %testmode%== 1 set /p sk=<resources\%op%\b%x%.txt
 if %testmode%== 2 set sk=h
-if %sk%== %y% start sound1.vbs
+if %sk%== %y% if %sounds%== true start sound1.vbs
 if %sk%== %y% goto poprawniexx
-start sound2.vbs
+if %sounds%== true start sound2.vbs
 goto zlexx
 
 
@@ -796,7 +831,7 @@ goto menu
 :ustawieniatestu
 cls
 echo Zmiana ustawieñ mo¿e wymagaæ ponownego uruchomienia programu.
-timeout 3 /nobreak >nul
+timeout 3 >nul
 goto ustawieniatestu1
 
 
@@ -813,10 +848,129 @@ call :text %colors%^1 "Professional test - ustawienia"
 echo.
 echo.
 echo 1 - Ustawienia graficzne
+echo 2 - Ustawienia uruchamiania
+echo 3 - Ustawienia dŸwiêku
+echo 4 - Cofnij
+choice /n /c:1234 /M ":"
+if %errorlevel%== 1 goto ustgraf
+if %errorlevel%== 2 goto usturuch
+if %errorlevel%== 2 goto ustsound
+if %errorlevel%== 4 goto menu
+
+
+
+
+
+
+:ustsound
+cls
+call :text %colors%^1 "Professional test - ustawienia dzwieku"
+echo.
+echo.
+echo 1 - W³¹cz lub wy³¹cz dŸwiêki
 echo 2 - Cofnij
 choice /n /c:12 /M ":"
-if %errorlevel%== 1 goto ustgraf
-if %errorlevel%== 2 goto menu
+if %errorlevel%== 1 goto changesound
+if %errorlevel%== 2 goto ustawieniatestu1
+
+
+
+:changesound
+cls
+if %sounds%== true goto changesound1
+if %sounds%== false goto changesound2
+
+:changesound1
+echo Od teraz dŸwiêki nie bêd¹ odtwarzane.
+echo false>playsound.f1n4l
+set /p sounds=<playsound.f1n4l
+timeout 3 >nul
+goto ustsound
+
+:changesound2
+echo Od teraz dŸwiêki bêd¹ odtwarzane.
+echo true>playsound.f1n4l
+set /p sounds=<playsound.f1n4l
+timeout 3 >nul
+goto ustsound
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:usturuch
+cls
+call :text %colors%^1 "Professional test - ustawienia uruchamiania"
+echo.
+echo.
+echo 1 - W³¹cz lub wy³¹cz sprawdzanie aktualizacji
+echo 2 - W³¹cz lub wy³¹cz ekran powitalny
+echo 3 - Cofnij
+choice /n /c:123 /M ":"
+if %errorlevel%== 1 goto changeupdates
+if %errorlevel%== 2 goto changeintro
+if %errorlevel%== 3 goto ustawieniatestu1
+goto usturuch
+
+
+
+:changeintro
+cls
+if %intro%== true goto changeintro1
+if %intro%== false goto changeintro2
+
+:changeintro1
+echo Od teraz ekran powitalny nie bêdzie wyœwietlany po uruchomieniu.
+echo false>displayintro.f1n4l
+set /p intro=<displayintro.f1n4l
+timeout 3 >nul
+goto usturuch
+
+:changeintro2
+echo Od teraz ekran powitalny bêdzie wyœwietlany po uruchomieniu.
+echo true>displayintro.f1n4l
+set /p intro=<displayintro.f1n4l
+timeout 3 >nul
+goto usturuch
+
+
+
+
+
+
+:changeupdates
+cls
+if %doskipupdate%== true goto changeupdates1
+if %doskipupdate%== false goto changeupdates2
+
+:changeupdates1
+echo Od teraz aktualizacje nie bêd¹ sprawdzane przy uruchamianiu.
+echo false>checkupdate.f1n4l
+set /p doskipupdate=<checkupdate.f1n4l
+timeout 3 >nul
+goto usturuch
+
+:changeupdates2
+echo Od teraz aktualizacje bêd¹ sprawdzane przy uruchamianiu.
+echo true>checkupdate.f1n4l
+set /p doskipupdate=<checkupdate.f1n4l
+timeout 3 >nul
+goto usturuch
+
+
+
 
 
 
@@ -833,6 +987,9 @@ choice /n /c:123 /M ":"
 if %errorlevel%== 1 goto ustgrafkolory
 if %errorlevel%== 2 goto ustgrafokno
 if %errorlevel%== 3 goto ustawieniatestu1
+
+
+
 
 
 
@@ -896,7 +1053,6 @@ goto go4
 if exist win2.f1n4l mode con cols=180 lines=60
 if exist win.f1n4l mode 800
 goto ustgrafokno
-
 
 
 
