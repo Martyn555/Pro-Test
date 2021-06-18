@@ -80,6 +80,7 @@ echo [%time%] Gotowe!
 timeout 5 >nul
 start test.bat
 exit
+:endupdate
 
 
 
