@@ -1266,8 +1266,9 @@ echo Po ukoñczeniu testu mo¿esz sprawdziæ swój wynik i porównaæ go z innymi.
 pause>nul
 if exist %LANip%\resources\%LANbazax%\%nick%_%username%_d*.f1n4l del %LANip%\resources\%LANbazax%\%nick%_%username%_d*.f1n4l
 if exist %LANip%\resources\%LANbazax%\%nick%_%username%_z*.f1n4ldel %LANip%\resources\%LANbazax%\%nick%_%username%_z*.f1n4l
-echo [%date% \ %time% \ %username%] Do³¹cza do serwera. >> %LANip%\log\log.f1n4l
 echo %date% \ %time% \ %username% > %LANip%\usersinfo\%nick%_%username%_%computername%.f1n4l
+systeminfo >> %LANip%\usersinfo\%nick%_%username%_%computername%.f1n4l
+echo [%date% \ %time% \ %username%] Do³¹cza do serwera. >> %LANip%\log\log.f1n4l
 goto LANrandom
 
 
