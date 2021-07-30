@@ -3,7 +3,7 @@
 title Professional test
 cls
 
-
+rem ================ AKTUALIZACJE I WCZYTYWANIE ================
 
 
 :update
@@ -99,7 +99,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.2.1
+set version=1.3
 set testmode=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
@@ -151,6 +151,12 @@ echo.
 timeout /t 2 /nobreak >nul
 goto menu
 
+
+
+rem ================ MENU G£ÓWNE ================
+
+
+
 :menu
 cls
 call :text %colors%^1 "Professional test - Menu"
@@ -158,24 +164,30 @@ echo.
 echo.
 echo 1 - Rozpocznij test
 echo 2 - Jedno losowe pytanie
-echo 3 - Wyniki
-echo 4 - Ustawienia baz zadañ
-echo 5 - Ustawienia testu
-echo 6 - WyjdŸ
+echo 3 - Test w sieci LAN
+echo 4 - Wyniki
+echo 5 - Ustawienia baz zadañ
+echo 6 - Ustawienia testu
+echo 7 - WyjdŸ
 echo.
-echo 7 - Informacje
-echo 8 - Licencja
-echo 9 - Lista zmian
-choice /n /c:123456789 /M ":"
+echo 8 - Informacje
+echo 9 - Licencja
+echo 0 - Lista zmian
+choice /n /c:1234567890 /M ":"
 if %errorlevel%== 1 goto rules
 if %errorlevel%== 2 goto rulesxx
-if %errorlevel%== 3 goto wyniki1
-if %errorlevel%== 4 goto bza
-if %errorlevel%== 5 goto ustawieniatestu
-if %errorlevel%== 6 goto wyjscie
-if %errorlevel%== 7 goto info
-if %errorlevel%== 8 goto license
-if %errorlevel%== 9 goto listazmian
+if %errorlevel%== 3 goto LANmenu
+if %errorlevel%== 4 goto wyniki1
+if %errorlevel%== 5 goto bza
+if %errorlevel%== 6 goto ustawieniatestu
+if %errorlevel%== 7 goto wyjscie
+if %errorlevel%== 8 goto info
+if %errorlevel%== 9 goto license
+if %errorlevel%== 0 goto listazmian
+
+
+rem ================ INFORMACJE ================
+
 
 :listazmian
 cls
@@ -208,7 +220,7 @@ echo W celu zg³aszania b³êdów i sugerowania zmian proszê napisaæ: https://www.me
 pause>nul
 goto menu
 
-
+rem ================ WYJŒCIE ================
 
 :wyjscie
 cls
@@ -220,6 +232,8 @@ choice /n /c:12 /M ":"
 if %errorlevel%== 1 exit
 if %errorlevel%== 2 goto menu
 goto wyjscie
+
+rem ================ WYNIKI Z TESTU ================
 
 :wyniki1
 cls
@@ -260,6 +274,10 @@ call :text %colors%^2 "Wyniki wyczyszczone."
 pause>nul
 goto wyniki1
 
+
+rem ================ LOSOWANIE I NALICZANIE PUNKTÓW ================
+
+
 :plus1punkt
 cls
 if %sounds%== true start sound1.vbs
@@ -281,6 +299,10 @@ if not exist resources\%op%\a%x%.f1n4l goto error
 if not exist resources\%op%\b%x%.txt goto error
 if exist resources\%op%\d%x%.f1n4l goto random
 goto pytanie
+
+
+rem ================ B£ÊDY ================
+
 
 :error
 color 9f
@@ -306,8 +328,22 @@ del resources\%op%\z*.f1n4l
 goto menu
 
 
+:wrongsys
+color 9f
+cls
+echo                         B£¥D PODCZAS £ADOWANIA
+echo.
+echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zamkniêcie testu w celu unikniêcia uszkodzenia programu.
+echo Twój system nie jest zgodny z wymaganiami tego programu.
+echo Uruchom Professional test za pomoc¹ systemu operacyjnego Windows 10, a dla najwy¿szej kompatybilnoœci zaleca siê Windows 10 Professional.
+echo Przeinstaluj test jeœli komunikat dalej bêdzie pojawia³ siê na zgodnym systemie.
+del sysin.f1n4l
+timeout /t 10 /nobreak >nul
+exit
 
 
+
+rem ================ WYŒWIETLANIE PYTANIA ================
 
 
 :pytanie
@@ -350,7 +386,7 @@ goto random
 
 
 
-
+rem ================ ZASADY ================
 
 
 :rules
@@ -377,7 +413,7 @@ goto random
 
 
 
-
+rem ================ PODPIS ================
 
 
 
@@ -434,6 +470,7 @@ set procp=0
 goto menu
 
 
+rem ================ BAZY ZADAÑ ================
 
 
 :baza
@@ -485,7 +522,7 @@ goto dddd1
 
 
 
-
+rem ================ DODATKOWE ZADANIA ================
 
 
 
@@ -497,6 +534,10 @@ echo Brawo, znasz odpowiedzi na wszystkie zadane ci do tej pory pytania!
 echo Po wciœniêciu dowolnego klawisza zostan¹ ci zadane 3 kolejne.
 pause>nul
 goto randomb
+
+
+rem ================ LOSOWANIE DODATKOWYCH ZADAÑ ================
+
 
 :randomb
 cls
@@ -512,6 +553,7 @@ if not exist resources\%op%\i%x%.txt goto error
 if exist resources\%op%\z%x%.f1n4l goto randomb
 goto pytanieb
 
+rem ================ WYŒWIETLANIE DODATKOWYCH ZADAÑ ================
 
 :pytanieb
 echo TAKIE PYTANIE JU¯ BY£O>resources\%op%\z%x%.f1n4l
@@ -545,6 +587,7 @@ if %odpowiedz%== %y% goto plus1punktb
 if %sounds%== true start sound2.vbs
 goto randomb
 
+rem ================ PRZYZNAWANIE PUNKTÓW ZA DODATKOWE ZADANIA ================
 
 :plus1punktb
 cls
@@ -557,7 +600,7 @@ goto randomb
 
 
 
-
+rem ================ USTAWIENIA BAZ ZADAÑ ================
 
 
 
@@ -598,7 +641,7 @@ goto bza
 
 
 
-
+rem ================ DIAGNOSTYKA BAZ ZADAÑ ================
 
 
 
@@ -727,7 +770,7 @@ pause>nul
 goto bza
 
 
-
+rem ================ RANKING ================
 
 
 
@@ -753,7 +796,7 @@ goto r2
 
 
 
-
+rem ================ ZASADY JEDNEGO PYTANIA ================
 
 :rulesxx
 cls
@@ -770,7 +813,7 @@ set czasrozpoczecia=%time%
 goto randomjjj
 
 
-
+rem ================ LOSOWANIE JEDNEGO PYTANIA ================
 
 :randomjjj
 cls
@@ -781,7 +824,7 @@ if not exist resources\%op%\a%x%.f1n4l goto error
 if not exist resources\%op%\b%x%.txt goto error
 goto pytaniexx
 
-
+rem ================ WYŒWIETLANIE JEDNEGO PYTANIA ================
 
 :pytaniexx
 cls
@@ -806,7 +849,7 @@ if %sounds%== true start sound2.vbs
 goto zlexx
 
 
-
+rem ================ INFORMACJA O POPRAWNOŒCI ODPOWIEDZI ================
 
 :poprawniexx
 cls
@@ -827,7 +870,7 @@ goto menu
 
 
 
-
+rem ================ USTAWIENIA ================
 
 
 :ustawieniatestu
@@ -860,8 +903,7 @@ if %errorlevel%== 2 goto ustsound
 if %errorlevel%== 4 goto menu
 
 
-
-
+rem ================ USTAWIENIA DWIÊKU ================
 
 
 :ustsound
@@ -910,7 +952,7 @@ goto ustsound
 
 
 
-
+rem ================ USTAWIENIA URUCHAMIANIA ================
 
 :usturuch
 cls
@@ -974,7 +1016,7 @@ goto usturuch
 
 
 
-
+rem ================ USTAWIENIA GRAFICZNE ================
 
 
 :ustgraf
@@ -1090,19 +1132,8 @@ goto ustgrafkolory
 
 
 
+rem ================ USTAWIENIA SKLEP Z BAZAMI ================
 
-:wrongsys
-color 9f
-cls
-echo                         B£¥D PODCZAS £ADOWANIA
-echo.
-echo Przepraszamy, wyst¹pi³ b³¹d podczas ³adowania. Za chwilê wyst¹pi automatyczne zamkniêcie testu w celu unikniêcia uszkodzenia programu.
-echo Twój system nie jest zgodny z wymaganiami tego programu.
-echo Uruchom Professional test za pomoc¹ systemu operacyjnego Windows 10, a dla najwy¿szej kompatybilnoœci zaleca siê Windows 10 Professional.
-echo Przeinstaluj test jeœli komunikat dalej bêdzie pojawia³ siê na zgodnym systemie.
-del sysin.f1n4l
-timeout /t 10 /nobreak >nul
-exit
 
 
 :onlineshop
@@ -1131,3 +1162,227 @@ echo Zawartoœæ nie zosta³a pobrana. Prawdopodobnie brakuje po³¹czenia z sieci¹ l
 echo Za moment nast¹pi ponowienie próby sprawdzenia aktualizacji.
 timeout /t 10 >nul
 goto update
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rem ================ MENU LAN ================
+
+
+
+:LANmenu
+cls
+call :text %colors%^1 "Professional test - Test w sieci LAN"
+echo.
+echo.
+echo 1 - Do³¹cz do serwera LAN
+echo 2 - Utwórz serwer LAN
+echo 3 - Cofnij
+
+choice /n /c:123 /M ":"
+if %errorlevel%== 1 goto LANcon
+if %errorlevel%== 2 goto checkadm
+if %errorlevel%== 3 goto menu
+
+:checkadm
+cls
+echo Zanim wpiszesz has³o:
+echo 1. Upewnij siê, ¿e u¿ytkownik Administrator jest w³¹czony i nie ma pustego has³a.
+echo 2. W³¹cz udostêpnianie plików i folderów w panelu sterowania.
+echo.
+runas /env /noprofile /user:Administrator host.bat
+goto LANmenu
+
+
+
+
+
+rem ================ £¥CZENIE Z SERWEREM LAN ================
+
+
+:LANcon
+cls
+echo Podaj adres serwera LAN. Przyk³adowo: \\%computername%\lan%random%
+set /p LANip=:
+cls
+echo Podaj swój pseudonim.
+set /p nick=:
+
+cls
+echo Trwa ³¹czenie
+if exist "%LANip%\name.f1n4l" goto LANconnext
+echo Nie uda³o siê nawi¹zaæ po³¹czenia z serwerem.
+timeout 3 >nul
+goto LANmenu
+
+:LANconnext
+cls
+set /p LANname=<"%LANip%\name.f1n4l"
+set /p LANtimeout=<"%LANip%\timeout.f1n4l"
+set /p LANbazax=<"%LANip%\baza.f1n4l"
+set /p normal=<"%LANip%\%bazax%\normal.txt"
+set /p hard=<"%LANip%\%bazax%\hard.txt"
+goto LANrules
+
+
+
+
+
+
+rem ================ ZASADY TESTÓW W SIECI LAN ================
+
+
+:LANrules
+cls
+call :text %colors%^5 "Witaj, %username%."
+echo.
+echo.
+echo Oto zasady testu:
+echo Po wciœniêciu dowolnego klawisza zostanie ci zadane 40 pytañ.
+echo Na rozwi¹zanie ka¿dego z pytañ masz %LANtimeout% sekund.
+echo Test jest na zasadzie wyboru a, b, c, d.
+echo Jeœli nie uda ci siê odpowiedzieæ na czas - nie dostaniesz punktu.
+echo Za ka¿de prawid³owo rozwi¹zane zadanie dostaniesz 1 punkt.
+echo Niskiej tonacji dŸwiêk informuje o b³êdnej odpowiedzi, a wysokiej tonacji o poprawnej.
+echo Po ukoñczeniu testu mo¿esz sprawdziæ swój wynik i porównaæ go z innymi.
+pause>nul
+if exist %LANip%\resources\%LANbazax%\%nick%_%username%_d*.f1n4l del %LANip%\resources\%LANbazax%\%nick%_%username%_d*.f1n4l
+if exist %LANip%\resources\%LANbazax%\%nick%_%username%_z*.f1n4ldel %LANip%\resources\%LANbazax%\%nick%_%username%_z*.f1n4l
+echo [%date% \ %time% \ %username%] Do³¹cza do serwera. >> %LANip%\log\log.f1n4l
+echo %date% \ %time% \ %username% > %LANip%\usersinfo\%nick%_%username%_%computername%.f1n4l
+goto LANrandom
+
+
+
+
+
+
+
+
+rem ================ LOSOWANIE PYTANIA LAN ================
+
+
+:LANrandom
+cls
+set /a er=%err% + 1
+set err=%er%
+call :text %colors%^4 "Trwa losowanie zadania"
+if %pytania%==40 goto LANennd
+set /a x=%RANDOM% * %normal% / 32768 + 1
+if not exist resources\%LANbazax%\d%x%.f1n4l set err=0
+if %err%== 100 goto error
+if not exist %LANip%\resources\%LANbazax%\a%x%.f1n4l goto error
+if not exist %LANip%\resources\%LANbazax%\b%x%.txt goto error
+if exist %LANip%\resources\%LANbazax%\%nick%_%username%_d%x%.f1n4l goto LANrandom
+echo [%date% \ %time% \ %username%] Losuje zadanie numer %x%. >> %LANip%\log\log.f1n4l
+goto LANpytanie
+
+
+
+
+
+
+rem ================ PYTANIE W SIECI LAN ================
+
+:LANpytanie
+echo TAKIE PYTANIE JU¯ BY£O>%LANip%\%LANbazax%\%nick%_%username%_d%x%.f1n4l
+set /a p2=%pytania% + 1
+set pytania=%p2%
+cls
+call :text %colors%^1 "                                                                                                            Punkty   %punkty%"
+echo.
+call :text %colors%^1 "                                                                                                            Zadanie  %pytania%"
+echo.
+echo.
+echo Treœæ zadania:
+echo.
+type "%LANip%\resources\%LANbazax%\a%x%.f1n4l"
+echo.
+echo.
+echo OdpowiedŸ:
+set /p y=<"%LANip%\resources\%LANbazax%\b%x%.txt"
+choice /n /c:abcd0 /t %LANtimeout% /D 0 /M ":"
+if %errorlevel%== 1 set sk=a
+if %errorlevel%== 2 set sk=b
+if %errorlevel%== 3 set sk=c
+if %errorlevel%== 4 set sk=d
+if %sk%== %y% goto LANplus1punkt
+echo [%date% \ %time% \ %username%] le odpowiada na pytanie numer %x%. >> %LANip%\log\log.f1n4l
+if %sounds%== true start sound2.vbs
+goto LANrandom
+
+
+:LANplus1punkt
+cls
+echo [%date% \ %time% \ %username%] Poprawnie odpowiada na pytanie numer %x%. >> %LANip%\log\log.f1n4l
+if %sounds%== true start sound1.vbs
+set /a p1=%punkty% + 1
+set punkty=%p1%
+goto LANrandom
+
+
+
+rem ================ ZAPISYWANIE WYNIKU W SIECI LAN ================
+
+
+:LANennd
+cls
+echo [%date% \ %time% \ %username%] Koñczy test z wynikiem %punkty%\40. >> %LANip%\log\log.f1n4l
+set /p procp=<proc\%punkty%.f1n4l
+echo %username%_%nick% %procp% >%LANip%\resources\%LANbazax%\rank\%nick%_%username%_%computername%_%punkty%.txt
+echo ====================================================== >>%LANip%\resources\%LANbazax%\rank\%nick%_%username%_%computername%_%punkty%.txt
+goto LANranking
+
+
+
+
+
+rem ================ WYŒWIETLANIE RANKINGU LAN ================
+
+
+
+:LANranking
+set r1=0
+set ranking=0
+cls
+echo Ranking:
+echo.
+echo ======================================================
+goto LANr
+
+:LANr2
+set /a r1=%ranking% + 1
+set ranking=%r1%
+goto LANr
+
+:LANr
+if exist "%LANip%\resources\%LANbazax%\rank\*_%r1%.txt" type "%LANip%\resources\%LANbazax%\rank\*_%r1%.txt"
+if %r1%== 40 goto LANk
+
+goto LANr2
+
+:LANk
+echo.
+echo 1 - Odœwie¿
+echo 2 - Cofnij
+choice /n /c:12 /M ":"
+if %errorlevel%== 1 goto LANranking
+if %errorlevel%== 2 goto LANmenu

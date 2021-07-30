@@ -84,3 +84,8 @@
 - Naprawienie problemu resetuj¹cych siê ustawieñ po aktualizacjach.
 - Wprowadzenie wymuszenia ponownego uruchomienia testu po aktualizacji.
 - Zaimplementowanie mo¿liwoœci uruchomienia testu na systemie Windows 11.
+
+========================================= 1.3 =========================================
+
+- Testy na serwerach w sieci lokalnej.
+- Podzielenie na sekcje, skomentowanie i uporz¹dkowanie kodu.
