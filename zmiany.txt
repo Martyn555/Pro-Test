@@ -87,5 +87,10 @@
 
 ========================================= 1.3 =========================================
 
-- Testy na serwerach w sieci lokalnej.
+- Dodanie testów na serwerach w sieci lokalnej.
 - Podzielenie na sekcje, skomentowanie i uporz¹dkowanie kodu.
+
+======================================== 1.3.1 ========================================
+
+- Naprawienie b³êdów powtarzania siê pytañ na testach przez LAN.
+- Naprawienie sypania siê programu na pierwszym pytaniu, przy podaniu innej odpowiedzi.

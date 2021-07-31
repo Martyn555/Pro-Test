@@ -99,8 +99,10 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.3
+set version=1.3.1
 set testmode=0
+set odpowiedz=0
+set sk=0
 set /p intro=<displayintro.f1n4l
 set /p op=<baza.f1n4l
 set /p normal=<resources\%op%\normal.txt
@@ -1288,7 +1290,7 @@ set err=%er%
 call :text %colors%^4 "Trwa losowanie zadania"
 if %pytania%==40 goto LANennd
 set /a x=%RANDOM% * %normal% / 32768 + 1
-if not exist resources\%LANbazax%\d%x%.f1n4l set err=0
+if not exist %LANip%\resources\%LANbazax%\%nick%_%username%_d%x%.f1n4l set err=0
 if %err%== 100 goto error
 if not exist %LANip%\resources\%LANbazax%\a%x%.f1n4l goto error
 if not exist %LANip%\resources\%LANbazax%\b%x%.txt goto error
@@ -1304,7 +1306,7 @@ goto LANpytanie
 rem ================ PYTANIE W SIECI LAN ================
 
 :LANpytanie
-echo TAKIE PYTANIE JU¯ BY£O>%LANip%\%LANbazax%\%nick%_%username%_d%x%.f1n4l
+echo TAKIE PYTANIE JU¯ BY£O>%LANip%\resources\%LANbazax%\%nick%_%username%_d%x%.f1n4l
 set /a p2=%pytania% + 1
 set pytania=%p2%
 cls
@@ -1348,8 +1350,19 @@ rem ================ ZAPISYWANIE WYNIKU W SIECI LAN ================
 cls
 echo [%date% \ %time% \ %username%] Koñczy test z wynikiem %punkty%\40. >> %LANip%\log\log.f1n4l
 set /p procp=<proc\%punkty%.f1n4l
-echo %username%_%nick% %procp% >%LANip%\resources\%LANbazax%\rank\%nick%_%username%_%computername%_%punkty%.txt
+echo %username%-%nick% %procp% %time% >%LANip%\resources\%LANbazax%\rank\%nick%_%username%_%computername%_%punkty%.txt
 echo ====================================================== >>%LANip%\resources\%LANbazax%\rank\%nick%_%username%_%computername%_%punkty%.txt
+
+set pytania=0
+set punkty=0
+set proc=0
+set pc=0
+set err=0
+set b1=0
+set baza=0
+set /p op=<baza.f1n4l
+del %LANip%\resources\%LANbazax%\%nick%_%username%_d%x%.f1n4l
+
 goto LANranking
 
 
