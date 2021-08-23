@@ -1,5 +1,7 @@
-@chcp 1250
 @echo off
+call coding CentralEuropeanLatin
+set /p encoding=<enc.f1n4l
+call coding %encoding%
 title Professional test
 cls
 
@@ -64,6 +66,7 @@ call powershell Expand-Archive -Force updatecat\ziptestpl.zip '%cd%\'
 echo [%time%] Trwa kopiowanie ustawieñ...
 copy "displayintro.f1n4l" "Pro-Test-master\"
 copy "color2.f1n4l" "Pro-Test-master\"
+copy "enc.f1n4l" "Pro-Test-master\"
 copy "color.f1n4l" "Pro-Test-master\"
 copy "checkupdate.f1n4l" "Pro-Test-master\"
 copy "baza.f1n4l" "Pro-Test-master\"
@@ -181,7 +184,7 @@ if %errorlevel%== 2 goto rulesxx
 if %errorlevel%== 3 goto LANmenu
 if %errorlevel%== 4 goto wyniki1
 if %errorlevel%== 5 goto bza
-if %errorlevel%== 6 goto ustawieniatestu
+if %errorlevel%== 6 goto ustawieniatestu1
 if %errorlevel%== 7 goto wyjscie
 if %errorlevel%== 8 goto info
 if %errorlevel%== 9 goto license
@@ -629,7 +632,10 @@ goto bza
 
 :usbaza
 cls
-echo Wpisz nazwê katalogu z baz¹ zadañ.
+echo Lista baz zadañ:
+dir /b "%cd%\resources"
+echo.
+echo Wpisz nazwê bazy zadañ.
 set /p secik=:
 echo %secik%>baza.f1n4l
 set /p op=<baza.f1n4l
@@ -875,16 +881,6 @@ goto menu
 rem ================ USTAWIENIA ================
 
 
-:ustawieniatestu
-cls
-echo Zmiana ustawieñ mo¿e wymagaæ ponownego uruchomienia programu.
-timeout 3 >nul
-goto ustawieniatestu1
-
-
-
-
-
 
 
 
@@ -1028,11 +1024,90 @@ echo.
 echo.
 echo 1 - Kolory
 echo 2 - Okno
-echo 3 - Cofnij
-choice /n /c:123 /M ":"
+echo 3 - Kodowanie
+echo 4 - Cofnij
+choice /n /c:1234 /M ":"
 if %errorlevel%== 1 goto ustgrafkolory
 if %errorlevel%== 2 goto ustgrafokno
-if %errorlevel%== 3 goto ustawieniatestu1
+if %errorlevel%== 3 goto codzn
+if %errorlevel%== 4 goto ustawieniatestu1
+
+
+
+:codzn
+cls
+call :text %colors%^1 "Professional test - ustawienia graficzne - kodowanie 1 z 2"
+echo.
+echo.
+echo Dostêpne kodowania znaków:
+echo 1 - Latin 1
+echo 2 - Latin 2
+echo 3 - Cyrillic
+echo 4 - Turkish
+echo 5 - Portuguese
+echo 6 - Icelandic
+echo 7 - Canadian-French
+echo 8 - Nordic
+echo 9 - Nastêpna strona
+echo 0 - Cofnij
+choice /n /c:1234567890 /M ":"
+if %errorlevel%== 1 echo Latin1 >enc.f1n4l
+if %errorlevel%== 2 echo Latin2 >enc.f1n4l
+if %errorlevel%== 3 echo Cyrillic >enc.f1n4l
+if %errorlevel%== 4 echo Turkish >enc.f1n4l
+if %errorlevel%== 5 echo Portuguese >enc.f1n4l
+if %errorlevel%== 6 echo Icelandic >enc.f1n4l
+if %errorlevel%== 7 echo Canadian-French >enc.f1n4l
+if %errorlevel%== 8 echo Nordic >enc.f1n4l
+if %errorlevel%== 9 goto codzn2
+if %errorlevel%== 10 goto ustgraf
+goto issetcoding
+
+
+
+
+:codzn2
+cls
+call :text %colors%^1 "Professional test - ustawienia graficzne - kodowanie 2 z 2"
+echo.
+echo.
+echo Dostêpne kodowania znaków:
+echo 1 - Russian
+echo 2 - Modern Greek
+echo 3 - West European Latin
+echo 4 - UTF-7
+echo 5 - UTF-8
+echo 6 - Unated States
+echo 7 - Central European Latin (Zalecane)
+echo 8 - Cofnij
+choice /n /c:12345678 /M ":"
+if %errorlevel%== 1 echo Russian >enc.f1n4l
+if %errorlevel%== 2 echo ModernGreek >enc.f1n4l
+if %errorlevel%== 3 echo WestEuropeanLatin >enc.f1n4l
+if %errorlevel%== 4 echo UTF-7 >enc.f1n4l
+if %errorlevel%== 5 echo UTF-8 >enc.f1n4l
+if %errorlevel%== 6 echo UnatedStates >enc.f1n4l
+if %errorlevel%== 7 echo CentralEuropeanLatin >enc.f1n4l
+if %errorlevel%== 8 goto codzn
+goto issetcoding2
+
+
+
+
+
+
+:issetcoding
+cls
+set /p encoding=<enc.f1n4l
+call coding %encoding%
+goto codzn
+:issetcoding2
+cls
+set /p encoding=<enc.f1n4l
+call coding %encoding%
+goto codzn2
+
+
 
 
 
@@ -1142,7 +1217,7 @@ rem ================ USTAWIENIA SKLEP Z BAZAMI ================
 del onlineshop.cmd
 cls
 echo Trwa pobieranie listy baz zadañ...
-call powershell wget "https://download1080.mediafire.com/izi2ax791hzg/xec1c234ubzu4he/onlineshop.cmd" -outfile "onlineshop.cmd"
+call powershell wget "" -outfile "onlineshop.cmd"
 if not exist onlineshop.cmd goto blnoe
 if exist onlineshop.cmd call onlineshop.cmd
 goto bza
@@ -1201,16 +1276,8 @@ echo 3 - Cofnij
 
 choice /n /c:123 /M ":"
 if %errorlevel%== 1 goto LANcon
-if %errorlevel%== 2 goto checkadm
+if %errorlevel%== 2 echo cd /d %cd% >"%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd" && call powershell -Command "Start-Process host.bat \"/k cd /d %cd%\" -Verb RunAs"
 if %errorlevel%== 3 goto menu
-
-:checkadm
-cls
-echo Zanim wpiszesz has³o:
-echo 1. Upewnij siê, ¿e u¿ytkownik Administrator jest w³¹czony i nie ma pustego has³a.
-echo 2. W³¹cz udostêpnianie plików i folderów w panelu sterowania.
-echo.
-runas /env /noprofile /user:Administrator host.bat
 goto LANmenu
 
 
@@ -1328,14 +1395,13 @@ if %errorlevel%== 2 set sk=b
 if %errorlevel%== 3 set sk=c
 if %errorlevel%== 4 set sk=d
 if %sk%== %y% goto LANplus1punkt
-echo [%date% \ %time% \ %username%] le odpowiada na pytanie numer %x%. >> %LANip%\log\log.f1n4l
+echo [%date% \ %time% \ %username%] Odpowiada na pytanie numer %x% \ podana odpowiedŸ %sk% \ prawid³owa odpowiedŸ %y%. >> %LANip%\log\log.f1n4l
 if %sounds%== true start sound2.vbs
 goto LANrandom
 
 
 :LANplus1punkt
 cls
-echo [%date% \ %time% \ %username%] Poprawnie odpowiada na pytanie numer %x%. >> %LANip%\log\log.f1n4l
 if %sounds%== true start sound1.vbs
 set /a p1=%punkty% + 1
 set punkty=%p1%

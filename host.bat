@@ -1,9 +1,13 @@
-@chcp 1250
 @echo off
 color 0a
 goto start
 :start
 cls
+call "%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd"
+del "%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd"
+call coding CentralEuropeanLatin
+set /p encoding=<enc.f1n4l
+call coding %encoding%
 title Pro-Test host testów sieciowych
 if exist LAN\name.f1n4l goto pocheckserv1
 
@@ -32,6 +36,9 @@ echo Trwa kopiowanie zasobów...
 xcopy resources\*.* LAN\resources /s /d /y /i >nul
 
 cls
+echo Lista baz zadań:
+dir /b "%cd%\LAN\resources"
+echo.
 echo Podaj jaka baza zadań ma być używana na serwerze.
 set /p LANbaza=:
 mkdir LAN\resources\%LANbaza%\rank
