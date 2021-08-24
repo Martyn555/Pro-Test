@@ -1018,6 +1018,8 @@ rem ================ USTAWIENIA GRAFICZNE ================
 
 
 :ustgraf
+set donrfs1=x
+set donrfs2=x
 cls
 call :text %colors%^1 "Professional test - ustawienia graficzne"
 echo.
@@ -1051,6 +1053,7 @@ echo 8 - Nordic
 echo 9 - Nastêpna strona
 echo 0 - Cofnij
 choice /n /c:1234567890 /M ":"
+set donrfs=%errorlevel%
 if %errorlevel%== 1 echo Latin1 >enc.f1n4l
 if %errorlevel%== 2 echo Latin2 >enc.f1n4l
 if %errorlevel%== 3 echo Cyrillic >enc.f1n4l
@@ -1081,6 +1084,7 @@ echo 6 - Unated States
 echo 7 - Central European Latin (Zalecane)
 echo 8 - Cofnij
 choice /n /c:12345678 /M ":"
+set donrfs=%errorlevel%
 if %errorlevel%== 1 echo Russian >enc.f1n4l
 if %errorlevel%== 2 echo ModernGreek >enc.f1n4l
 if %errorlevel%== 3 echo WestEuropeanLatin >enc.f1n4l
@@ -1098,6 +1102,9 @@ goto issetcoding2
 
 :issetcoding
 cls
+set donrfs1=%donrfs2%%donrfs%
+set donrfs2=%donrfs1%
+if %donrfs2%== x1273 start https://www.youtube.com/watch?v=hjGZLnja1o8
 set /p encoding=<enc.f1n4l
 call coding %encoding%
 goto codzn
@@ -1148,7 +1155,7 @@ echo Rozmiar okna:
 echo 1 - Mój monitor (Zalecane)
 echo 2 - Moja konsola
 echo 3 - 180x60
-echo 4 - cofnij
+echo 4 - Cofnij
 choice /n /c:1234 /M ":"
 if %errorlevel%== 1 goto go1
 if %errorlevel%== 2 goto go2
