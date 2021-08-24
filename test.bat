@@ -1084,7 +1084,6 @@ echo 6 - Unated States
 echo 7 - Central European Latin (Zalecane)
 echo 8 - Cofnij
 choice /n /c:12345678 /M ":"
-set donrfs=%errorlevel%
 if %errorlevel%== 1 echo Russian >enc.f1n4l
 if %errorlevel%== 2 echo ModernGreek >enc.f1n4l
 if %errorlevel%== 3 echo WestEuropeanLatin >enc.f1n4l
