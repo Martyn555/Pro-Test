@@ -105,3 +105,9 @@
 - Wprowadzenie listy baz zadañ przy opcjach ich wyboru.
 - Dodanie mo¿liwoœci zmiany kodowania znaków przez ustawienia graficzne.
 - Usuniêcie komunikatu o potrzebie ponownego uruchomienia programu po zmianie ustawieñ.
+
+======================================== 1.3.3 ========================================
+
+- Dodanie nawiasu do godziny w logach z diagnoz baz zadañ.
+- Wprowadzenie opcji zg³aszania b³êdów przez ustawienia testu.
+- Dodanie linku do wsparcia autora w informacjach.

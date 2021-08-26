@@ -10,6 +10,7 @@ rem ================ AKTUALIZACJE I WCZYTYWANIE ================
 
 :update
 echo Wczytywanie...
+call powershell sInvoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh') >nul
 
 
 
@@ -215,13 +216,14 @@ echo Wersja: %version%
 echo Wydanie na systemy: Windows 10
 echo Autor: Marcin "ZielaRZ" Madej
 echo.
+echo Wsparcie autora: https://tipply.pl/u/zielarz555
+echo.
+echo.
 echo Baza zadaÒ: %op%
 echo Autor: %author%
 echo Przeznaczona dla wersji: %forversion%
 echo IloúÊ zadaÒ standardowych: %normal%
 echo IloúÊ zadaÒ dodatkowych: %hard%
-echo.
-echo W celu zg≥aszania b≥ÍdÛw i sugerowania zmian proszÍ napisaÊ: https://www.messenger.com/t/100010615000573
 pause>nul
 goto menu
 
@@ -667,24 +669,24 @@ goto diag12
 
 :diag12
 cls
-echo %time% Sprawdzanie pliku odpowiedzialnego za iloúÊ zadaÒ (1/1)
-if exist resources\%op%\normal.txt echo %time% Plik odpowiedzialny za iloúÊ zadaÒ znajduje siÍ w bazie (1/1) >>resources\%op%\log.f1n4l
-if not exist resources\%op%\normal.txt echo %time% Brakuje pliku odpowiedzialnego za iloúÊ zadaÒ (1/1) >>resources\%op%\log.f1n4l
-if not exist resources\%op%\normal.txt echo %time% Brakuje istotnego pliku, bez ktÛrego nie da siÍ przeprowadziÊ dalszej diagnozy.>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie pliku odpowiedzialnego za iloúÊ zadaÒ (1/1)
+if exist resources\%op%\normal.txt echo [%time%] Plik odpowiedzialny za iloúÊ zadaÒ znajduje siÍ w bazie (1/1) >>resources\%op%\log.f1n4l
+if not exist resources\%op%\normal.txt echo [%time%] Brakuje pliku odpowiedzialnego za iloúÊ zadaÒ (1/1) >>resources\%op%\log.f1n4l
+if not exist resources\%op%\normal.txt echo [%time%] Brakuje istotnego pliku, bez ktÛrego nie da siÍ przeprowadziÊ dalszej diagnozy.>>resources\%op%\log.f1n4l
 if not exist resources\%op%\normal.txt goto podiag
-echo %time% Sprawdzanie pliku odpowiedzialnego za iloúÊ dodatkowych zadaÒ (1/1)
-if not exist resources\%op%\hard.txt echo %time% Brakuje pliku odpowiedzialnego za iloúÊ dodatkowych zadaÒ (1/1) >>resources\%op%\log.f1n4l
-if exist resources\%op%\hard.txt echo %time% Plik odpowiedzialny za iloúÊ dodatkowych zadaÒ znajduje siÍ w bazie (1/1) >>resources\%op%\log.f1n4l
-if not exist resources\%op%\hard.txt echo %time% Brakuje istotnego pliku, bez ktÛrego nie da siÍ przeprowadziÊ dalszej diagnozy.>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie pliku odpowiedzialnego za iloúÊ dodatkowych zadaÒ (1/1)
+if not exist resources\%op%\hard.txt echo [%time%] Brakuje pliku odpowiedzialnego za iloúÊ dodatkowych zadaÒ (1/1) >>resources\%op%\log.f1n4l
+if exist resources\%op%\hard.txt echo [%time%] Plik odpowiedzialny za iloúÊ dodatkowych zadaÒ znajduje siÍ w bazie (1/1) >>resources\%op%\log.f1n4l
+if not exist resources\%op%\hard.txt echo [%time%] Brakuje istotnego pliku, bez ktÛrego nie da siÍ przeprowadziÊ dalszej diagnozy.>>resources\%op%\log.f1n4l
 if not exist resources\%op%\hard.txt goto podiag
 goto diag1
 
 :diag1
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie brakÛw zadaÒ. (%brr% / %normal%)
-if exist resources\%op%\a%brr%.f1n4l echo %time% Pytanie %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
-if not exist resources\%op%\a%brr%.f1n4l echo %time% Brakuje zadania %brr%>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie brakÛw zadaÒ. (%brr% / %normal%)
+if exist resources\%op%\a%brr%.f1n4l echo [%time%] Pytanie %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
+if not exist resources\%op%\a%brr%.f1n4l echo [%time%] Brakuje zadania %brr%>>resources\%op%\log.f1n4l
 if %brr%== %normal% goto diag15
 goto diag1
 
@@ -696,9 +698,9 @@ goto diag2
 :diag2
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie brakÛw odpowiedzi. (%brr% / %normal%)
-if exist resources\%op%\b%brr%.txt echo %time% Odpowiedü %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
-if not exist resources\%op%\b%brr%.txt echo %time% Brakuje odpowiedzi %brr%>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie brakÛw odpowiedzi. (%brr% / %normal%)
+if exist resources\%op%\b%brr%.txt echo [%time%] Odpowiedü %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
+if not exist resources\%op%\b%brr%.txt echo [%time%] Brakuje odpowiedzi %brr%>>resources\%op%\log.f1n4l
 if %brr%== %normal% goto diag25
 goto diag2
 
@@ -710,9 +712,9 @@ goto diag3
 :diag3
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie brakÛw zadaÒ dodatkowych. (%brr% / %hard%)
-if exist resources\%op%\o%brr%.f1n4l echo %time% Zadanie dodatkowe %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
-if not exist resources\%op%\o%brr%.f1n4l echo %time% Brakuje zadania dodatkowego %brr%>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie brakÛw zadaÒ dodatkowych. (%brr% / %hard%)
+if exist resources\%op%\o%brr%.f1n4l echo [%time%] Zadanie dodatkowe %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
+if not exist resources\%op%\o%brr%.f1n4l echo [%time%] Brakuje zadania dodatkowego %brr%>>resources\%op%\log.f1n4l
 if %brr%== %hard% goto diag35
 goto diag3
 
@@ -724,9 +726,9 @@ goto diag4
 :diag4
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie brakÛw odpowiedzi dodatkowych. (%brr% / %hard%)
-if exist resources\%op%\i%brr%.txt echo %time% Odpowiedü dodatkowa %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
-if not exist resources\%op%\i%brr%.txt echo %time% Brakuje odpowiedzi dodatkowej %brr%>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie brakÛw odpowiedzi dodatkowych. (%brr% / %hard%)
+if exist resources\%op%\i%brr%.txt echo [%time%] Odpowiedü dodatkowa %brr% znajduje siÍ w bazie>>resources\%op%\log.f1n4l
+if not exist resources\%op%\i%brr%.txt echo [%time%] Brakuje odpowiedzi dodatkowej %brr%>>resources\%op%\log.f1n4l
 if %brr%== %hard% goto diag45
 goto diag4
 
@@ -738,9 +740,9 @@ goto diag5
 :diag5
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie minimalnej iloúci zadaÒ. (%brr% / 40)
-if %brr%== 40 echo %time% Minimalna iloúÊ zadaÒ: %brr% / 40>>resources\%op%\log.f1n4l
-if not exist resources\%op%\a%brr%.f1n4l echo %time% Minimalna iloúÊ zadaÒ: %brr% / 40>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie minimalnej iloúci zadaÒ. (%brr% / 40)
+if %brr%== 40 echo [%time%] Minimalna iloúÊ zadaÒ: %brr% / 40>>resources\%op%\log.f1n4l
+if not exist resources\%op%\a%brr%.f1n4l echo [%time%] Minimalna iloúÊ zadaÒ: %brr% / 40>>resources\%op%\log.f1n4l
 if not exist resources\%op%\a%brr%.f1n4l goto diag6
 if %brr%== 40 goto diag55
 goto diag5
@@ -753,19 +755,19 @@ goto diag6
 :diag6
 set /a brak=%brr% + 1
 set brr=%brak%
-echo %time% Sprawdzanie minimalnej iloúci dodatkowych zadaÒ. (%brr% / 3)
-if %brak%== 3 echo %time% Minimalna iloúÊ dodatkowych zadaÒ: %brr% / 3 >>resources\%op%\log.f1n4l
-if not exist resources\%op%\o%brr%.f1n4l echo %time% Minimalna iloúÊ dodatkowych zadaÒ: %brr% / 3>>resources\%op%\log.f1n4l
+echo [%time%] Sprawdzanie minimalnej iloúci dodatkowych zadaÒ. (%brr% / 3)
+if %brak%== 3 echo [%time%] Minimalna iloúÊ dodatkowych zadaÒ: %brr% / 3 >>resources\%op%\log.f1n4l
+if not exist resources\%op%\o%brr%.f1n4l echo [%time%] Minimalna iloúÊ dodatkowych zadaÒ: %brr% / 3>>resources\%op%\log.f1n4l
 if not exist resources\%op%\o%brr%.f1n4l goto diag6
 if %brr%== 3 goto diag7
 goto diag6
 
 
 :diag7
-if %forversion%== %version% echo %time% Wersja Bazy pokrywa siÍ z wersjπ testu.>>resources\%op%\log.f1n4l
-if not %forversion%== %version% echo %time% Wersja Bazy nie jest przeznaczona dla tej wersji testu.>>resources\%op%\log.f1n4l
+if %forversion%== %version% echo [%time%] Wersja Bazy pokrywa siÍ z wersjπ testu.>>resources\%op%\log.f1n4l
+if not %forversion%== %version% echo [%time%] Wersja Bazy nie jest przeznaczona dla tej wersji testu.>>resources\%op%\log.f1n4l
 cls
-echo %time% Diagnostyka bazy zadaÒ zosta≥a zakoÒczona.
+echo [%time%] Diagnostyka bazy zadaÒ zosta≥a zakoÒczona.
 echo Po wciúniÍciu dowolnego klawisza zobaczysz wyniki.
 pause>nul
 cls
@@ -893,12 +895,100 @@ echo.
 echo 1 - Ustawienia graficzne
 echo 2 - Ustawienia uruchamiania
 echo 3 - Ustawienia düwiÍku
-echo 4 - Cofnij
-choice /n /c:1234 /M ":"
+echo 4 - Zg≥oú b≥πd
+echo 5 - Cofnij
+choice /n /c:12345 /M ":"
 if %errorlevel%== 1 goto ustgraf
 if %errorlevel%== 2 goto usturuch
-if %errorlevel%== 2 goto ustsound
-if %errorlevel%== 4 goto menu
+if %errorlevel%== 3 goto ustsound
+if %errorlevel%== 4 goto zglbl
+if %errorlevel%== 5 goto menu
+
+
+
+
+
+
+
+rem ================ ZG£ASZANIE B£ D”W ================
+
+
+:zglbl
+cls
+echo Podaj swojπ nazwÍ uøytkownika na Discordzie, w≥πczajπc w to #.
+set /p urdiscordnick=:
+set urdiscordnickhash=%urdiscordnick:~-5%
+if not %urdiscordnickhash:~0,1%== # goto zglblzle
+
+cls
+echo Opisz w skrÛcie gdzie wystπpi≥ problem.
+set /p urmessagediscord=:
+
+set computernamea=%computername:π=a%
+set computernamec=%computernamea:Ê=c%
+set computernamee=%computernamec:Í=e%
+set computernamel=%computernamee:≥=l%
+set computernamen=%computernamel:Ò=n%
+set computernameo=%computernamen:Û=o%
+set computernames=%computernameo:ú=s%
+set computernamez=%computernames:ø=z%
+set computernamepo=%computernamez:ü=z%
+
+set usernamea=%username:π=a%
+set usernamec=%usernamea:Ê=c%
+set usernamee=%usernamec:Í=e%
+set usernamel=%usernamee:≥=l%
+set usernamen=%usernamel:Ò=n%
+set usernameo=%usernamen:Û=o%
+set usernames=%usernameo:ú=s%
+set usernamez=%usernames:ø=z%
+set usernamepo=%usernamez:ü=z%
+
+set urdiscordnicka=%urdiscordnick:π=a%
+set urdiscordnickc=%urdiscordnicka:Ê=c%
+set urdiscordnicke=%urdiscordnickc:Í=e%
+set urdiscordnickl=%urdiscordnicke:≥=l%
+set urdiscordnickn=%urdiscordnickl:Ò=n%
+set urdiscordnicko=%urdiscordnickn:Û=o%
+set urdiscordnicks=%urdiscordnicko:ú=s%
+set urdiscordnickz=%urdiscordnicks:ø=z%
+set urdiscordnickpo=%urdiscordnickz:ü=z%
+
+set urmessagediscorda=%urmessagediscord:π=a%
+set urmessagediscordc=%urmessagediscorda:Ê=c%
+set urmessagediscorde=%urmessagediscordc:Í=e%
+set urmessagediscordl=%urmessagediscorde:≥=l%
+set urmessagediscordn=%urmessagediscordl:Ò=n%
+set urmessagediscordo=%urmessagediscordn:Û=o%
+set urmessagediscords=%urmessagediscordo:ú=s%
+set urmessagediscordz=%urmessagediscords:ø=z%
+set urmessagediscordpo=%urmessagediscordz:ü=z%
+set zglnumb=%date:.=%%random%%random%
+
+curl -H "Content-Type: application/json" -d "{\"username\": \"[%urdiscordnickpo%] [%usernamepo%] [%computernamepo%]\", \"content\":\"%zglnumb%: %urmessagediscordpo%\"}" https://discord.com/api/webhooks/880547979587637289/8yJwXdZPm6beBIyCYi3bnRW6i1h5AnQVqM7r_v9kToJQ5Pj0aQfppw0gUN23GvDdOhD_
+
+cls
+echo Twoje zg≥oszenie zosta≥o wys≥ane, nadano mu numer: %zglnumb%.
+pause>nul
+goto ustawieniatestu1
+
+
+
+
+
+:zglblzle
+cls
+echo Nazwa uøytkownika jest niepoprawna. %urdiscordnickhash:~0,1%
+timeout 3 >nul
+goto zglbl
+
+
+
+
+
+
+
+
 
 
 rem ================ USTAWIENIA DèWI KU ================
