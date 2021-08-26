@@ -111,3 +111,4 @@
 - Dodanie nawiasu do godziny w logach z diagnoz baz zadañ.
 - Wprowadzenie opcji zg³aszania b³êdów przez ustawienia testu.
 - Dodanie linku do wsparcia autora w informacjach.
+- Usuniêcie b³êdu zapêtlania siê pytania o aktualizacjê.

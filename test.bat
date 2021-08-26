@@ -1,4 +1,5 @@
 @echo off
+set doupcho=0
 call coding CentralEuropeanLatin
 set /p encoding=<enc.f1n4l
 call coding %encoding%
@@ -50,11 +51,13 @@ goto endupdate
 
 :update2
 cls
+if %doupcho%== 2 goto omiftoupd
 echo Zosta³a znaleziona aktualizacja testu. Czy chcesz j¹ zainstalowaæ?
 echo.
 echo 1 - Tak. (Zalecane)
 echo 2 - Nie.
 choice /n /c:12 /M ":"
+set doupcho=%errorlevel%
 if %errorlevel%== 1 goto zrobupdate
 if %errorlevel%== 2 goto endupdate
 
@@ -103,7 +106,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.3.3
+set version=1.3.2
 set testmode=0
 set odpowiedz=0
 set sk=0
@@ -130,7 +133,9 @@ del "%~2" > nul 2>&1
 goto :eof
 :file
 
+
 if %doskipupdate%== true if not %version%==%updatev% goto update2
+:omiftoupd
 
 if %intro%== true goto intro
 if %intro%== false goto menu
