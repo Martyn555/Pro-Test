@@ -112,3 +112,7 @@
 - Wprowadzenie opcji zg³aszania b³êdów przez ustawienia testu.
 - Dodanie linku do wsparcia autora w informacjach.
 - Usuniêcie b³êdu zapêtlania siê pytania o aktualizacjê.
+
+========================================= 1.4 =========================================
+
+- Zmienienie sposobu zapisu ustawieñ testu na plik cfg.

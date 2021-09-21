@@ -6,7 +6,11 @@ cls
 call "%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd"
 del "%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd"
 call coding CentralEuropeanLatin
-set /p encoding=<enc.f1n4l
+
+type config.cfg | findstr /R /C:"character_encoding" > setting.tmp
+set /p tmpset=<setting.tmp
+set encoding=%tmpset:character_encoding =%
+
 call coding %encoding%
 title Pro-Test host testów sieciowych
 if exist LAN\name.f1n4l goto pocheckserv1

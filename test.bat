@@ -1,7 +1,11 @@
 @echo off
 set doupcho=0
 call coding CentralEuropeanLatin
-set /p encoding=<enc.f1n4l
+
+type config.cfg | findstr /R /C:"character_encoding" > setting.tmp
+set /p tmpset=<setting.tmp
+set encoding=%tmpset:character_encoding =%
+
 call coding %encoding%
 title Professional test
 cls
@@ -40,7 +44,11 @@ goto gitsys
 
 :gitsys
 rd /s /q updatecat
-set /p doskipupdate=<checkupdate.f1n4l
+
+type config.cfg | findstr /R /C:"checking_for_updates" > setting.tmp
+set /p tmpset=<setting.tmp
+set doskipupdate=%tmpset:checking_for_updates =%
+
 if %doskipupdate%== false goto endupdate
 md updatecat
 echo Sprawdzanie aktualizacji...
@@ -68,13 +76,7 @@ call powershell wget "https://codeload.github.com/Martyn555/Pro-Test/zip/master"
 echo [%time%] Trwa Wypakowywanie aktualizacji...
 call powershell Expand-Archive -Force updatecat\ziptestpl.zip '%cd%\'
 echo [%time%] Trwa kopiowanie ustawieñ...
-copy "displayintro.f1n4l" "Pro-Test-master\"
-copy "color2.f1n4l" "Pro-Test-master\"
-copy "enc.f1n4l" "Pro-Test-master\"
-copy "color.f1n4l" "Pro-Test-master\"
-copy "checkupdate.f1n4l" "Pro-Test-master\"
-copy "baza.f1n4l" "Pro-Test-master\"
-copy "playsound.f1n4l" "Pro-Test-master\"
+copy "config.cfg" "Pro-Test-master\"
 echo [%time%] Trwa wprowadzanie zmian...
 copy "Pro-Test-master\*.*" "%cd%\"
 echo [%time%] Trwa wypakowywanie zasobów...
@@ -92,12 +94,19 @@ exit
 
 
 
+type config.cfg | findstr /R /C:"window" > setting.tmp
+set /p tmpset=<setting.tmp
+set windowsize=%tmpset:window =%
 
-if exist win2.f1n4l mode con cols=180 lines=60
-if exist win.f1n4l mode 800
+if %windowsize%==other mode con cols=180 lines=60
+if %windowsize%==full mode 800
 mode con rate=32 delay=0
-set /p color=<color.f1n4l
-set /p colors=<color2.f1n4l
+
+type config.cfg | findstr /R /C:"color" > setting.tmp
+set /p tmpset=<setting.tmp
+set color=%tmpset:color =%
+set colors=%color:~0,1%
+
 color %color%
 set pytania=0
 set punkty=0
@@ -106,18 +115,28 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.3.3
+set version=1.4
 set testmode=0
 set odpowiedz=0
 set sk=0
-set /p intro=<displayintro.f1n4l
-set /p op=<baza.f1n4l
+
+type config.cfg | findstr /R /C:"display_intro" > setting.tmp
+set /p tmpset=<setting.tmp
+set intro=%tmpset:display_intro =%
+
+type config.cfg | findstr /R /C:"base" > setting.tmp
+set /p tmpset=<setting.tmp
+set op=%tmpset:base =%
+
+type config.cfg | findstr /R /C:"play_sounds" > setting.tmp
+set /p tmpset=<setting.tmp
+set sounds=%tmpset:play_sounds =%
+
 set /p normal=<resources\%op%\normal.txt
 set /p hard=<resources\%op%\hard.txt
-set /p op=<baza.f1n4l
 set /p forversion=<resources\%op%\forversion.txt
 set /p author=<resources\%op%\author.txt
-set /p sounds=<playsound.f1n4l
+
 title Professional test      Wersja: %version%
 setlocal EnableDelayedExpansion
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
@@ -169,6 +188,7 @@ rem ================ MENU G£ÓWNE ================
 
 
 :menu
+if exist setting.tmp del setting.tmp
 cls
 call :text %colors%^1 "Professional test - Menu"
 echo.
@@ -643,9 +663,10 @@ echo Lista baz zadañ:
 dir /b "%cd%\resources"
 echo.
 echo Wpisz nazwê bazy zadañ.
-set /p secik=:
-echo %secik%>baza.f1n4l
-set /p op=<baza.f1n4l
+set /p op=:
+
+call over
+
 set /p normal=<resources\%op%\normal.txt
 set /p hard=<resources\%op%\hard.txt
 set /p forversion=<resources\%op%\forversion.txt
@@ -1019,15 +1040,19 @@ if %sounds%== false goto changesound2
 
 :changesound1
 echo Od teraz dŸwiêki nie bêd¹ odtwarzane.
-echo false>playsound.f1n4l
-set /p sounds=<playsound.f1n4l
+set sounds=false
+
+call over
+
 timeout 3 >nul
 goto ustsound
 
 :changesound2
 echo Od teraz dŸwiêki bêd¹ odtwarzane.
-echo true>playsound.f1n4l
-set /p sounds=<playsound.f1n4l
+set sounds=true
+
+call over
+
 timeout 3 >nul
 goto ustsound
 
@@ -1070,15 +1095,19 @@ if %intro%== false goto changeintro2
 
 :changeintro1
 echo Od teraz ekran powitalny nie bêdzie wyœwietlany po uruchomieniu.
-echo false>displayintro.f1n4l
-set /p intro=<displayintro.f1n4l
+set intro=false
+
+call over
+
 timeout 3 >nul
 goto usturuch
 
 :changeintro2
 echo Od teraz ekran powitalny bêdzie wyœwietlany po uruchomieniu.
-echo true>displayintro.f1n4l
-set /p intro=<displayintro.f1n4l
+set intro=true
+
+call over
+
 timeout 3 >nul
 goto usturuch
 
@@ -1094,15 +1123,19 @@ if %doskipupdate%== false goto changeupdates2
 
 :changeupdates1
 echo Od teraz aktualizacje nie bêd¹ sprawdzane przy uruchamianiu.
-echo false>checkupdate.f1n4l
-set /p doskipupdate=<checkupdate.f1n4l
+set doskipupdate=false
+
+call over
+
 timeout 3 >nul
 goto usturuch
 
 :changeupdates2
 echo Od teraz aktualizacje bêd¹ sprawdzane przy uruchamianiu.
-echo true>checkupdate.f1n4l
-set /p doskipupdate=<checkupdate.f1n4l
+set doskipupdate=true
+
+call over
+
 timeout 3 >nul
 goto usturuch
 
@@ -1149,14 +1182,14 @@ echo 9 - Nastêpna strona
 echo 0 - Cofnij
 choice /n /c:1234567890 /M ":"
 set donrfs=%errorlevel%
-if %errorlevel%== 1 echo Latin1 >enc.f1n4l
-if %errorlevel%== 2 echo Latin2 >enc.f1n4l
-if %errorlevel%== 3 echo Cyrillic >enc.f1n4l
-if %errorlevel%== 4 echo Turkish >enc.f1n4l
-if %errorlevel%== 5 echo Portuguese >enc.f1n4l
-if %errorlevel%== 6 echo Icelandic >enc.f1n4l
-if %errorlevel%== 7 echo Canadian-French >enc.f1n4l
-if %errorlevel%== 8 echo Nordic >enc.f1n4l
+if %errorlevel%== 1 set encoding=Latin1
+if %errorlevel%== 2 set encoding=Latin2
+if %errorlevel%== 3 set encoding=Cyrillic
+if %errorlevel%== 4 set encoding=Turkish
+if %errorlevel%== 5 set encoding=Portuguese
+if %errorlevel%== 6 set encoding=Icelandic
+if %errorlevel%== 7 set encoding=Canadian-French
+if %errorlevel%== 8 set encoding=Nordic
 if %errorlevel%== 9 goto codzn2
 if %errorlevel%== 10 goto ustgraf
 goto issetcoding
@@ -1179,13 +1212,13 @@ echo 6 - Unated States
 echo 7 - Central European Latin (Zalecane)
 echo 8 - Cofnij
 choice /n /c:12345678 /M ":"
-if %errorlevel%== 1 echo Russian >enc.f1n4l
-if %errorlevel%== 2 echo ModernGreek >enc.f1n4l
-if %errorlevel%== 3 echo WestEuropeanLatin >enc.f1n4l
-if %errorlevel%== 4 echo UTF-7 >enc.f1n4l
-if %errorlevel%== 5 echo UTF-8 >enc.f1n4l
-if %errorlevel%== 6 echo UnatedStates >enc.f1n4l
-if %errorlevel%== 7 echo CentralEuropeanLatin >enc.f1n4l
+if %errorlevel%== 1 set encoding=Russian
+if %errorlevel%== 2 set encoding=ModernGreek
+if %errorlevel%== 3 set encoding=WestEuropeanLatin
+if %errorlevel%== 4 set encoding=UTF-7
+if %errorlevel%== 5 set encoding=UTF-8
+if %errorlevel%== 6 set encoding=UnatedStates
+if %errorlevel%== 7 set encoding=CentralEuropeanLatin
 if %errorlevel%== 8 goto codzn
 goto issetcoding2
 
@@ -1199,12 +1232,16 @@ cls
 set donrfs1=%donrfs2%%donrfs%
 set donrfs2=%donrfs1%
 if %donrfs2%== x1273 start https://www.youtube.com/watch?v=hjGZLnja1o8
-set /p encoding=<enc.f1n4l
+
+call over
+
 call coding %encoding%
 goto codzn
 :issetcoding2
 cls
-set /p encoding=<enc.f1n4l
+
+call over
+
 call coding %encoding%
 goto codzn2
 
@@ -1260,20 +1297,20 @@ goto ustgrafokno
 
 
 :go1
-echo 800>win.f1n4l
-if exist win2.f1n4l del win2.f1n4l
+set windowsize=full
 goto go4
 :go2
-if exist win.f1n4l del win.f1n4l
-if exist win2.f1n4l del win2.f1n4l
+set windowsize=console
 goto go4
 :go3
-echo 180x60>win2.f1n4l
-if exist win.f1n4l del win.f1n4l
+set windowsize=other
 goto go4
 :go4
-if exist win2.f1n4l mode con cols=180 lines=60
-if exist win.f1n4l mode 800
+
+call over
+
+if %windowsize%==other mode con cols=180 lines=60
+if %windowsize%==full mode 800
 goto ustgrafokno
 
 
@@ -1284,26 +1321,29 @@ goto ustgrafokno
 
 :white
 cls
-echo f0>color.f1n4l
-echo f>color2.f1n4l
-set /p color=<color.f1n4l
-set /p colors=<color2.f1n4l
+set color=f0
+set colors=%color:~0,1%
+
+call over
+
 color %color%
 goto ustgrafkolory
 :dark
 cls
-echo 0f>color.f1n4l
-echo ^0>color2.f1n4l
-set /p color=<color.f1n4l
-set /p colors=<color2.f1n4l
+set color=0f
+set colors=%color:~0,1%
+
+call over
+
 color %color%
 goto ustgrafkolory
 :night
 cls
-echo 0c>color.f1n4l
-echo ^0>color2.f1n4l
-set /p color=<color.f1n4l
-set /p colors=<color2.f1n4l
+set color=0c
+set colors=%color:~0,1%
+
+call over
+
 color %color%
 goto ustgrafkolory
 
