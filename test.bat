@@ -14,11 +14,14 @@ rem ================ AKTUALIZACJE I WCZYTYWANIE ================
 
 
 :update
+if not exist sysin.f1n4l echo Za chwilê rozpocznie siê pierwsze uruchamianie.
+if not exist sysin.f1n4l echo Mo¿e ono potrwaæ d³u¿ej ni¿ ka¿de kolejne.
+if not exist sysin.f1n4l echo Upewnij siê, ¿e masz dostêp do internetu.
+
+if not exist sysin.f1n4l echo Pobieranie zasobów...
+if not exist sysin.f1n4l call powershell sInvoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh') >nul
+
 echo Wczytywanie...
-call powershell sInvoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh') >nul
-
-
-
 if not exist sysin.f1n4l systeminfo>sysin.f1n4l
 find /C /I "Microsoft Windows 11" "sysin.f1n4l">win.txt
 for /f "skip=1 tokens=3" %%G IN (win.txt) DO echo %%G >win.f1n4l
@@ -34,10 +37,10 @@ goto gitsys
 if not exist sysin.f1n4l systeminfo>sysin.f1n4l
 find /C /I "Microsoft Windows 10" "sysin.f1n4l">win.txt
 for /f "skip=1 tokens=3" %%G IN (win.txt) DO echo %%G >win.f1n4l
-set /p windowsversion=<win.f1n4l
+set /p windowsversionx=<win.f1n4l
 del win.txt
 del win.f1n4l
-if %windowsversion%== 0 goto wrongsys
+if %windowsversionx%== 0 goto wrongsys
 goto gitsys
 
 
@@ -64,7 +67,7 @@ echo Zosta³a znaleziona aktualizacja testu. Czy chcesz j¹ zainstalowaæ?
 echo.
 echo 1 - Tak. (Zalecane)
 echo 2 - Nie.
-choice /n /c:12 /M ":"
+choice /n /c:12
 set doupcho=%errorlevel%
 if %errorlevel%== 1 goto zrobupdate
 if %errorlevel%== 2 goto endupdate
@@ -115,7 +118,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.4
+set version=1.5
 set testmode=0
 set odpowiedz=0
 set sk=0
@@ -204,7 +207,7 @@ echo.
 echo 8 - Informacje
 echo 9 - Licencja
 echo 0 - Lista zmian
-choice /n /c:1234567890 /M ":"
+choice /n /c:1234567890
 if %errorlevel%== 1 goto rules
 if %errorlevel%== 2 goto rulesxx
 if %errorlevel%== 3 goto LANmenu
@@ -237,16 +240,22 @@ cls
 call :text %colors%^1 "Professional test - Informacje"
 echo.
 echo.
+echo PROGRAM:
 echo Wersja: %version%
-echo Wydanie na systemy: Windows 10
+echo Wydanie na systemy: Windows 11
+if %windowsversion%== 0 echo.
+if %windowsversion%== 0 echo Twoja wersja systemu nie jest wspierana przez Pro-Test.
+if %windowsversion%== 0 echo Mog¹ wystêpowaæ liczne b³êdy.
+if %windowsversion%== 0 echo.
 echo Autor: Marcin "ZielaRZ" Madej
 echo.
 echo Wsparcie autora: https://tipply.pl/u/zielarz555
 echo.
 echo.
+echo BAZA:
 echo Baza zadañ: %op%
 echo Autor: %author%
-echo Przeznaczona dla wersji: %forversion%
+echo Przeznaczona dla wersji testu: %forversion%
 echo Iloœæ zadañ standardowych: %normal%
 echo Iloœæ zadañ dodatkowych: %hard%
 pause>nul
@@ -260,7 +269,7 @@ echo Czy na pewno chcesz wyjœæ?
 echo.
 echo 1 - Tak
 echo 2 - Nie
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 exit
 if %errorlevel%== 2 goto menu
 goto wyjscie
@@ -273,7 +282,7 @@ echo 1 - Pe³ne wyniki testów
 echo 2 - Ranking
 echo 3 - Wyczyœæ wyniki
 echo 4 - Cofnij
-choice /n /c:1234 /M ":"
+choice /n /c:1234
 if %errorlevel%== 1 goto wyniki
 if %errorlevel%== 2 goto ranking
 if %errorlevel%== 3 goto wyczysc
@@ -294,7 +303,7 @@ cls
 echo Czy na pewno chcesz wyczyœciæ wyniki?
 echo 1 - Tak
 echo 2 - Nie
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 echo ====================================================== >resources\%op%\wyniki\c.f1n4l
 if %errorlevel%== 1 del resources\%op%\rank\*.txt
 if %errorlevel%== 1 goto dwujka
@@ -393,10 +402,13 @@ echo.
 type resources\%op%\a%x%.f1n4l
 echo.
 echo.
-echo OdpowiedŸ:
+echo 9 - Cofnij
+echo.
 set /p y=<resources\%op%\b%x%.txt
-set /p odpowiedz=:
+set /p odpowiedz=OdpowiedŸ: 
 
+
+if %odpowiedz%== 9 goto anulujpytanie
 if %odpowiedz%== testmode0 set testmode=0
 if %odpowiedz%== testmode0 echo TESTOWANIE WY£¥CZONE
 if %odpowiedz%== testmode0 timeout /t 2 /nobreak >nul
@@ -412,6 +424,15 @@ if %testmode%== 2 set odpowiedz=h
 if %odpowiedz%== %y% goto plus1punkt
 if %sounds%== true start sound2.vbs
 goto random
+
+:anulujpytanie
+cls
+echo Czy na pewno chcesz anulowaæ ten test?
+echo 1 - Tak
+echo 2 - Nie
+choice /n /c:12
+if %errorlevel%== 1 goto menu
+if %errorlevel%== 2 goto pytanie
 
 
 
@@ -462,7 +483,7 @@ echo.
 echo Czy chcesz zapisaæ wynik?
 echo 1 - Tak
 echo 2 - Nie
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 goto save
 set pytania=0
 set punkty=0
@@ -599,10 +620,12 @@ echo.
 type resources\%op%\o%x%.f1n4l
 echo.
 echo.
-echo OdpowiedŸ:
+echo 9 - Cofnij
+echo.
 set /p y=<resources\%op%\i%x%.txt
-set /p odpowiedz=:
+set /p odpowiedz=OdpowiedŸ: 
 
+if %odpowiedz%== 9 goto anulujpytanie2
 if %odpowiedz%== testmode0 set testmode=0
 if %odpowiedz%== testmode0 echo TESTOWANIE WY£¥CZONE
 if %odpowiedz%== testmode0 timeout /t 2 /nobreak >nul
@@ -618,6 +641,16 @@ if %testmode%== 2 set odpowiedz=h
 if %odpowiedz%== %y% goto plus1punktb
 if %sounds%== true start sound2.vbs
 goto randomb
+
+:anulujpytanie2
+cls
+echo Czy na pewno chcesz siê poddaæ w takim momencie?
+echo 1 - Tak
+echo 2 - Nie
+choice /n /c:12
+if %errorlevel%== 1 goto menu
+if %errorlevel%== 2 goto pytanieb
+
 
 rem ================ PRZYZNAWANIE PUNKTÓW ZA DODATKOWE ZADANIA ================
 
@@ -638,17 +671,16 @@ rem ================ USTAWIENIA BAZ ZADAÑ ================
 
 :bza
 cls
-call :text %colors%^1 "Ustawienia - bazy zadañ"
+call :text %colors%^1 "Ustawienia - bazy zadan"
 echo.
-echo Aktualnie wybrana baza: %op%
 echo.
-echo 1 - Wyœwietl zawartoœæ wybranej bazy zadañ
-echo 2 - Zmieñ bazê zadañ
-echo 3 - Diagnozuj wybran¹ bazê zadañ
-echo 4 - Wyœwietl logi poprzedniej diagnozy
-echo 5 - Przegl¹daj bazy zadañ przez internet
-echo 6 - Cofnij
-choice /n /c:123456 /M ":"
+echo 1 - Wyœwietl zawartoœæ wybranej bazy zadañ         ^|     Aktualnie wybrana baza:
+echo 2 - Zmieñ bazê zadañ                               ^|     Baza zadañ: %op%
+echo 3 - Diagnozuj aktualnie wybran¹ bazê zadañ         ^|     Autor: %author%
+echo 4 - Wyœwietl logi poprzedniej diagnozy             ^|     Przeznaczona dla wersji testu: %forversion%
+echo 5 - Przegl¹daj bazy zadañ przez internet           ^|     Iloœæ zadañ standardowych: %normal%
+echo 6 - Cofnij                                         ^|     Iloœæ zadañ dodatkowych: %hard%
+choice /n /c:123456
 if %errorlevel%== 1 goto baza
 if %errorlevel%== 2 goto usbaza
 if %errorlevel%== 3 goto diag
@@ -656,6 +688,13 @@ if %errorlevel%== 4 goto podiag
 if %errorlevel%== 5 goto onlineshop
 if %errorlevel%== 6 goto menu
 goto bza
+
+
+
+
+
+
+
 
 :usbaza
 cls
@@ -870,9 +909,8 @@ echo.
 type resources\%op%\a%x%.f1n4l
 echo.
 echo.
-echo OdpowiedŸ:
 set /p y=<resources\%op%\b%x%.txt
-choice /n /c:ABCD /M ":"
+choice /n /c:ABCD /M "OdpowiedŸ:"
 if %errorlevel%== 1 set sk=a
 if %errorlevel%== 2 set sk=b
 if %errorlevel%== 3 set sk=c
@@ -923,7 +961,7 @@ echo 2 - Ustawienia uruchamiania
 echo 3 - Ustawienia dŸwiêku
 echo 4 - Zg³oœ b³¹d
 echo 5 - Cofnij
-choice /n /c:12345 /M ":"
+choice /n /c:12345
 if %errorlevel%== 1 goto ustgraf
 if %errorlevel%== 2 goto usturuch
 if %errorlevel%== 3 goto ustsound
@@ -940,15 +978,22 @@ rem ================ ZG£ASZANIE B£ÊDÓW ================
 
 
 :zglbl
+if %windowsversion%== 0 echo Opcja "zg³oœ b³¹d" nie jest obs³ugiwana na twojej wersji systemu.
+if %windowsversion%== 0 timeout 6
+if %windowsversion%== 0 goto ustawieniatestu1
 cls
 echo Podaj swoj¹ nazwê u¿ytkownika na Discordzie, w³¹czaj¹c w to #.
+echo 9 - Cofnij
 set /p urdiscordnick=:
+if %urdiscordnick%== 9 goto ustawieniatestu1
 set urdiscordnickhash=%urdiscordnick:~-5%
 if not %urdiscordnickhash:~0,1%== # goto zglblzle
 
 cls
 echo Opisz w skrócie gdzie wyst¹pi³ problem.
+echo 9 - Cofnij
 set /p urmessagediscord=:
+if %urmessagediscord%== 9 goto ustawieniatestu1
 
 set computernamea=%computername:¹=a%
 set computernamec=%computernamea:æ=c%
@@ -1027,7 +1072,7 @@ echo.
 echo.
 echo 1 - W³¹cz lub wy³¹cz dŸwiêki
 echo 2 - Cofnij
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 goto changesound
 if %errorlevel%== 2 goto ustawieniatestu1
 
@@ -1080,7 +1125,7 @@ echo.
 echo 1 - W³¹cz lub wy³¹cz sprawdzanie aktualizacji
 echo 2 - W³¹cz lub wy³¹cz ekran powitalny
 echo 3 - Cofnij
-choice /n /c:123 /M ":"
+choice /n /c:123
 if %errorlevel%== 1 goto changeupdates
 if %errorlevel%== 2 goto changeintro
 if %errorlevel%== 3 goto ustawieniatestu1
@@ -1156,7 +1201,7 @@ echo 1 - Kolory
 echo 2 - Okno
 echo 3 - Kodowanie
 echo 4 - Cofnij
-choice /n /c:1234 /M ":"
+choice /n /c:1234
 if %errorlevel%== 1 goto ustgrafkolory
 if %errorlevel%== 2 goto ustgrafokno
 if %errorlevel%== 3 goto codzn
@@ -1180,7 +1225,7 @@ echo 7 - Canadian-French
 echo 8 - Nordic
 echo 9 - Nastêpna strona
 echo 0 - Cofnij
-choice /n /c:1234567890 /M ":"
+choice /n /c:1234567890
 set donrfs=%errorlevel%
 if %errorlevel%== 1 set encoding=Latin1
 if %errorlevel%== 2 set encoding=Latin2
@@ -1211,7 +1256,7 @@ echo 5 - UTF-8
 echo 6 - Unated States
 echo 7 - Central European Latin (Zalecane)
 echo 8 - Cofnij
-choice /n /c:12345678 /M ":"
+choice /n /c:12345678
 if %errorlevel%== 1 set encoding=Russian
 if %errorlevel%== 2 set encoding=ModernGreek
 if %errorlevel%== 3 set encoding=WestEuropeanLatin
@@ -1266,7 +1311,7 @@ echo.
 call :text 0c "3 - Ciemny-nocny"
 echo.
 echo 4 - Cofnij
-choice /n /c:1234 /M ":"
+choice /n /c:1234
 if %errorlevel%== 1 goto white
 if %errorlevel%== 2 goto dark
 if %errorlevel%== 3 goto night
@@ -1287,7 +1332,7 @@ echo 1 - Mój monitor (Zalecane)
 echo 2 - Moja konsola
 echo 3 - 180x60
 echo 4 - Cofnij
-choice /n /c:1234 /M ":"
+choice /n /c:1234
 if %errorlevel%== 1 goto go1
 if %errorlevel%== 2 goto go2
 if %errorlevel%== 3 goto go3
@@ -1355,10 +1400,16 @@ rem ================ USTAWIENIA SKLEP Z BAZAMI ================
 
 
 :onlineshop
-del onlineshop.cmd
+if exist onlineshop.cmd del onlineshop.cmd
+
+echo Ta funkcja jest niedostêpna.
+timeout 3
+goto bza
+
+
 cls
 echo Trwa pobieranie listy baz zadañ...
-call powershell wget "" -outfile "onlineshop.cmd"
+call powershell wget "link" -outfile "onlineshop.cmd"
 if not exist onlineshop.cmd goto blnoe
 if exist onlineshop.cmd call onlineshop.cmd
 goto bza
@@ -1415,7 +1466,7 @@ echo 1 - Do³¹cz do serwera LAN
 echo 2 - Utwórz serwer LAN
 echo 3 - Cofnij
 
-choice /n /c:123 /M ":"
+choice /n /c:123
 if %errorlevel%== 1 goto LANcon
 if %errorlevel%== 2 echo cd /d %cd% >"%systemdrive%\Users\%username%\AppData\Roaming\cd.cmd" && call powershell -Command "Start-Process host.bat \"/k cd /d %cd%\" -Verb RunAs"
 if %errorlevel%== 3 goto menu
@@ -1528,9 +1579,8 @@ echo.
 type "%LANip%\resources\%LANbazax%\a%x%.f1n4l"
 echo.
 echo.
-echo OdpowiedŸ:
 set /p y=<"%LANip%\resources\%LANbazax%\b%x%.txt"
-choice /n /c:abcd0 /t %LANtimeout% /D 0 /M ":"
+choice /n /c:abcd0 /t %LANtimeout% /D 0 /M "OdpowiedŸ:"
 if %errorlevel%== 1 set sk=a
 if %errorlevel%== 2 set sk=b
 if %errorlevel%== 3 set sk=c
@@ -1604,6 +1654,6 @@ goto LANr2
 echo.
 echo 1 - Odœwie¿
 echo 2 - Cofnij
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 goto LANranking
 if %errorlevel%== 2 goto LANmenu

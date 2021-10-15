@@ -93,7 +93,7 @@ echo.
 echo 1 - Zamknij okno hosta
 echo 2 - Zamknij serwer
 echo 3 - Odśwież logi
-choice /n /c:123 /t 1 /D 3 /M ":"
+choice /n /c:123 /t 1 /D 3
 if %errorlevel%== 1 goto exity
 if %errorlevel%== 2 goto pdele
 if %errorlevel%== 3 goto pocheckserv1
@@ -111,7 +111,7 @@ echo Do okna hosta dalej będzie można powrócić przez opcję "Utwórz serwer 
 echo.
 echo 1 - Tak
 echo 2 - Nie
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 exit
 if %errorlevel%== 2 goto pocheckserv1
 
@@ -127,7 +127,7 @@ echo Wyłączenie serwera spowoduje usunięcie logów serwera.
 echo.
 echo 1 - Tak
 echo 2 - Nie
-choice /n /c:12 /M ":"
+choice /n /c:12
 if %errorlevel%== 1 goto dele
 if %errorlevel%== 2 goto pocheckserv1
 

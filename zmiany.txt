@@ -116,3 +116,11 @@
 ========================================= 1.4 =========================================
 
 - Zmienienie sposobu zapisu ustawieñ testu na plik cfg.
+
+========================================= 1.5 =========================================
+
+- Zakoñczenie wsparcia dla systemu Windows 10.
+- Mo¿liwoœæ anulowania po wybraniu opcji zg³oœ b³¹d.
+- Mo¿liwoœæ anulowania testu.
+- Usuniêcie dwukropka w opcjach wyboru i na testach.
+- Wprowadzenie wyœwietlania informacji o bazie w menu ustawieñ baz zadañ.
