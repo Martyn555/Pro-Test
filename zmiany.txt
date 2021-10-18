@@ -1,9 +1,9 @@
 ========================================= 0.2 =========================================
 
-- Mo¿liwoœæ dadawania w³asnych baz zadañ.
-- Narzêdzie do diagnozowania baz zadañ.
+- Dodanie mo¿liwoœci dadawania w³asnych baz zadañ.
+- Dodanie narzêdziea do diagnozowania baz zadañ.
 - Zmiana menu programu.
-- 2 tryby testowania odpowiedzi.
+- Wprowadzenie 2 trybów testowania odpowiedzi.
 
 ========================================= 0.3 =========================================
 
@@ -16,15 +16,15 @@
 
 ========================================= 0.4 =========================================
 
-- Ikona testu.
+- Usuniêcie ikony testu.
 - Naprawienie b³êdów.
 
 ========================================= 0.5 =========================================
 
-- Tryby testowania odpowiedzi w zadaniach dodatkowych.
-- Przeliczanie punktów na procenty.
+- Wprowadzenie trybów testowania odpowiedzi w zadaniach dodatkowych.
+- Dodanie przeliczania punktów na procenty.
 - Zmiana menu programu.
-- Ranking wyników.
+- Dodanie rankingu wyników.
 
 ========================================= 0.6 =========================================
 
@@ -128,3 +128,8 @@
 ======================================== 1.5.1 ========================================
 
 - Naprawienie problemu ze zg³aszaniem b³êdów.
+
+======================================== 1.5.2 ========================================
+
+- Poprawienie przejrzystoœci informacji.
+- Zmiana ekranu powitalnego.

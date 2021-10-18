@@ -76,7 +76,7 @@ if %errorlevel%== 2 goto endupdate
 cls
 echo [%time%] Trwa pobieranie aktualizacji...
 call powershell wget "https://codeload.github.com/Martyn555/Pro-Test/zip/master" -outfile "updatecat\ziptestpl.zip"
-echo [%time%] Trwa Wypakowywanie aktualizacji...
+echo [%time%] Trwa instalowanie aktualizacji...
 call powershell Expand-Archive -Force updatecat\ziptestpl.zip '%cd%\'
 echo [%time%] Trwa kopiowanie ustawieñ...
 copy "config.cfg" "Pro-Test-master\"
@@ -118,7 +118,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.5.1
+set version=1.5.2
 set testmode=0
 set odpowiedz=0
 set sk=0
@@ -163,7 +163,6 @@ if %intro%== true goto intro
 if %intro%== false goto menu
 if not exist displayintro.f1n4l goto error
 :intro
-echo.
 echo.
 echo.
 call :text %colors%^1 "          P  R  O  F  E  S  S  I  O  N  A  L"
@@ -252,10 +251,10 @@ echo.
 echo Wsparcie autora: https://tipply.pl/u/zielarz555
 echo.
 echo.
-echo BAZA:
-echo Baza zadañ: %op%
+echo AKTUALNIE U¯YWANA BAZA ZADAÑ:
+echo Nazwa: %op%
 echo Autor: %author%
-echo Przeznaczona dla wersji testu: %forversion%
+echo Przeznaczona dla wersji: %forversion%
 echo Iloœæ zadañ standardowych: %normal%
 echo Iloœæ zadañ dodatkowych: %hard%
 pause>nul
@@ -677,7 +676,7 @@ echo.
 echo 1 - Wyœwietl zawartoœæ wybranej bazy zadañ         ^|     Aktualnie wybrana baza:
 echo 2 - Zmieñ bazê zadañ                               ^|     Baza zadañ: %op%
 echo 3 - Diagnozuj aktualnie wybran¹ bazê zadañ         ^|     Autor: %author%
-echo 4 - Wyœwietl logi poprzedniej diagnozy             ^|     Przeznaczona dla wersji testu: %forversion%
+echo 4 - Wyœwietl logi poprzedniej diagnozy             ^|     Przeznaczona dla wersji: %forversion%
 echo 5 - Przegl¹daj bazy zadañ przez internet           ^|     Iloœæ zadañ standardowych: %normal%
 echo 6 - Cofnij                                         ^|     Iloœæ zadañ dodatkowych: %hard%
 choice /n /c:123456
