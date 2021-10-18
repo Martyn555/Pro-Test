@@ -118,7 +118,7 @@ set pc=0
 set err=0
 set b1=0
 set baza=0
-set version=1.5
+set version=1.5.1
 set testmode=0
 set odpowiedz=0
 set sk=0
@@ -978,8 +978,9 @@ rem ================ ZG£ASZANIE B£ÊDÓW ================
 
 
 :zglbl
+if %windowsversion%== 0 cls
 if %windowsversion%== 0 echo Opcja "zg³oœ b³¹d" nie jest obs³ugiwana na twojej wersji systemu.
-if %windowsversion%== 0 timeout 6
+if %windowsversion%== 0 timeout 6 >nul
 if %windowsversion%== 0 goto ustawieniatestu1
 cls
 echo Podaj swoj¹ nazwê u¿ytkownika na Discordzie, w³¹czaj¹c w to #.
@@ -993,7 +994,7 @@ cls
 echo Opisz w skrócie gdzie wyst¹pi³ problem.
 echo 9 - Cofnij
 set /p urmessagediscord=:
-if %urmessagediscord%== 9 goto ustawieniatestu1
+
 
 set computernamea=%computername:¹=a%
 set computernamec=%computernamea:æ=c%
@@ -1035,6 +1036,8 @@ set urmessagediscords=%urmessagediscordo:œ=s%
 set urmessagediscordz=%urmessagediscords:¿=z%
 set urmessagediscordpo=%urmessagediscordz:Ÿ=z%
 set zglnumb=%date:.=%%random%%random%
+
+if %zglnumb%== 9 goto ustawieniatestu1
 
 curl -H "Content-Type: application/json" -d "{\"username\": \"[%urdiscordnickpo%] [%usernamepo%] [%computernamepo%]\", \"content\":\"%zglnumb%: %urmessagediscordpo%\"}" https://discord.com/api/webhooks/880547979587637289/8yJwXdZPm6beBIyCYi3bnRW6i1h5AnQVqM7r_v9kToJQ5Pj0aQfppw0gUN23GvDdOhD_
 

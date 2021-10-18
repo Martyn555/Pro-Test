@@ -124,3 +124,7 @@
 - Mo¿liwoœæ anulowania testu.
 - Usuniêcie dwukropka w opcjach wyboru i na testach.
 - Wprowadzenie wyœwietlania informacji o bazie w menu ustawieñ baz zadañ.
+
+======================================== 1.5.1 ========================================
+
+- Naprawienie problemu ze zg³aszaniem b³êdów.
