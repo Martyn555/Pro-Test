@@ -992,7 +992,6 @@ if not %urdiscordnickhash:~0,1%== # goto zglblzle
 
 cls
 echo Opisz w skrócie gdzie wyst¹pi³ problem.
-echo 9 - Cofnij
 set /p urmessagediscord=:
 
 
@@ -1036,8 +1035,6 @@ set urmessagediscords=%urmessagediscordo:œ=s%
 set urmessagediscordz=%urmessagediscords:¿=z%
 set urmessagediscordpo=%urmessagediscordz:Ÿ=z%
 set zglnumb=%date:.=%%random%%random%
-
-if %zglnumb%== 9 goto ustawieniatestu1
 
 curl -H "Content-Type: application/json" -d "{\"username\": \"[%urdiscordnickpo%] [%usernamepo%] [%computernamepo%]\", \"content\":\"%zglnumb%: %urmessagediscordpo%\"}" https://discord.com/api/webhooks/880547979587637289/8yJwXdZPm6beBIyCYi3bnRW6i1h5AnQVqM7r_v9kToJQ5Pj0aQfppw0gUN23GvDdOhD_
 
